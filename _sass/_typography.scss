@@ -4,6 +4,31 @@
 
 @use "variables" as v;
 
+body {
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-weight: 650;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
 p,
 h1,
 h2,
@@ -42,6 +67,8 @@ table.table a {
   &:hover {
     color: var(--global-theme-color);
     text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
   }
 
   &:hover:after :not(.nav-item.dropdown) {

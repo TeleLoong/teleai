@@ -1,0 +1,26 @@
+{% assign enabled = true %}
+{% if page.news_preview and page.news_preview.enabled == false %}
+  {% assign enabled = false %}
+{% endif %}
+{% if enabled %}
+  <section class="home-section home-news">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>{{ page.news_preview.title | default: 'News' }}</h2>
+        <a class="home-section-link" href="{{ '/news/' | relative_url }}">All news</a>
+      </div>
+
+      {% if page.announcements == null %}
+        {% assign announcements_enabled = true %}
+      {% else %}
+        {% assign announcements_enabled = page.announcements.enabled | default: true %}
+      {% endif %}
+
+      {% if announcements_enabled %}
+        {% include news.liquid limit=true %}
+      {% else %}
+        <p class="home-muted">News preview is disabled.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

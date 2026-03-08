@@ -4,15 +4,25 @@
 
 @use "variables" as v;
 
+.pub-links {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+
+  code {
+    font-size: 0.9em;
+  }
+}
+
 .publications {
   margin-top: 2rem;
 
   h1 {
     color: var(--global-theme-color);
     font-size: 2rem;
-    text-align: center;
+    text-align: left;
     margin-top: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0.75em;
   }
 
   h2 {
@@ -24,11 +34,13 @@
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
-    border-top: 1px solid var(--global-divider-color);
-    padding-top: 1rem;
+    color: var(--global-text-color-light);
+    border-top: none;
+    border-bottom: 1px solid var(--global-divider-color);
+    padding-top: 0;
+    padding-bottom: 0.5rem;
     margin-top: 2rem;
-    text-align: right;
+    text-align: left;
   }
 
   ol.bibliography {
@@ -37,7 +49,9 @@
     margin-top: 0;
 
     li {
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--global-divider-color);
 
       .preview {
         display: inline-block;
@@ -99,22 +113,31 @@
       }
 
       .links {
+        font-size: 0.95rem;
+        color: var(--global-text-color-light);
+
+        a + a::before {
+          content: " · ";
+          color: var(--global-text-color-light);
+          padding: 0 0.25rem;
+        }
+
         a.btn {
-          color: var(--global-text-color);
-          border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
-          margin-left: 0;
+          color: var(--global-theme-color);
+          border: none;
+          padding: 0;
+          background: transparent;
+          margin: 0;
 
           &:hover {
-            color: var(--global-theme-color);
-            border-color: var(--global-theme-color);
+            color: var(--global-hover-color);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
           }
         }
         a.award.btn {
-          border-color: var(--global-highlight-color);
+          color: var(--global-highlight-color);
         }
       }
 

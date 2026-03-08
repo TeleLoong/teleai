@@ -1,0 +1,217 @@
+---
+layout: default
+---
+
+<div class="home-page">
+  {% include home/top_banner.liquid %}
+
+  {% assign hero_title = page.hero.title | default: site.title | default: 'Your Lab Name' %}
+  {% assign hero_tagline = page.hero.tagline %}
+  {% assign hero_intro = page.hero.intro %}
+
+  <section class="home-hero-simple">
+    <div class="container">
+      <div class="home-hero-grid">
+        <div class="home-hero-copy">
+          <h1 class="home-hero-title">{{ hero_title | newline_to_br }}</h1>
+          {% if hero_tagline %}
+            <p class="home-hero-tagline">{{ hero_tagline }}</p>
+          {% endif %}
+          {% if hero_intro %}
+            <p class="home-hero-intro">{{ hero_intro }}</p>
+          {% endif %}
+          <div class="home-hero-actions">
+            <a class="btn btn-primary" href="{{ '/research/' | relative_url }}">研究方向</a>
+            <a class="btn btn-outline-primary" href="{{ '/publications/' | relative_url }}">研究成果</a>
+            <a class="btn btn-outline-primary" href="{{ '/jobs/' | relative_url }}">招聘</a>
+          </div>
+        </div>
+
+        {% if page.hero and page.hero.image %}
+          <div class="home-hero-media">
+            {%
+              include figure.liquid
+              loading="eager"
+              path=page.hero.image
+              sizes="(min-width: 992px) 420px, 92vw"
+              alt=page.hero.image_alt
+              class="home-hero-image"
+              cache_bust=true
+            %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-highlights">
+    <div class="container">
+      <div class="home-highlights-grid">
+        <div class="home-highlight-box" aria-hidden="true"></div>
+        <div class="home-highlight-box" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-section--divider">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>研究方向</h2>
+        <a class="home-section-link" href="{{ '/research/' | relative_url }}">查看详情</a>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+          <div class="home-card">
+            <h3 class="home-card-title">空海跨域具身智能体</h3>
+            <p class="home-card-lead">面向空中/海面/水下等复杂环境，实现感知—规划—控制一体化的具身智能系统。</p>
+            <ul class="home-card-list">
+              <li>跨域任务建模与策略学习（仿真到真实）</li>
+              <li>多模态感知与鲁棒自主决策</li>
+              <li>系统级闭环评测与真实场景部署</li>
+            </ul>
+            <a class="home-card-more" href="{{ '/research/' | relative_url }}">了解更多 →</a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="home-card">
+            <h3 class="home-card-title">涉水光学/视觉</h3>
+            <p class="home-card-lead">研究涉水成像机理与视觉增强，提升水下/水面场景的可见性与任务可用性。</p>
+            <ul class="home-card-list">
+              <li>涉水成像建模、复原与增强</li>
+              <li>视觉感知与任务理解（检测/分割/跟踪）</li>
+              <li>轻量化与端侧部署，适应低光/浑浊环境</li>
+            </ul>
+            <a class="home-card-more" href="{{ '/research/' | relative_url }}">了解更多 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% assign team_url = '/team/' | relative_url %}
+  {% assign team = site.data.team %}
+  {% assign members = '' | split: ',' %}
+
+  {% if team and team.featured_ids %}
+    {% assign all_members = '' | split: ',' %}
+    {% if team.lead %}
+      {% assign all_members = all_members | push: team.lead %}
+    {% endif %}
+    {% if team.groups %}
+      {% for group in team.groups %}
+        {% if group.members %}
+          {% for member in group.members %}
+            {% assign all_members = all_members | push: member %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% for featured_id in team.featured_ids %}
+      {% assign found = all_members | where: 'id', featured_id | first %}
+      {% if found %}
+        {% assign members = members | push: found %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if members == blank or members.size == 0 %}
+    {% if team and team.lead %}
+      {% assign members = members | push: team.lead %}
+    {% endif %}
+    {% if team and team.groups %}
+      {% for group in team.groups %}
+        {% if group.members %}
+          {% for member in group.members %}
+            {% if members.size < 4 %}
+              {% assign members = members | push: member %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+
+  <section class="home-section home-section--divider">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>团队</h2>
+        <a class="home-section-link" href="{{ team_url }}">查看全部</a>
+      </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
+        {% for member in members limit: 4 %}
+          <div class="col mb-4">
+            <a class="home-team-card-link" href="{{ team_url }}">
+              <div class="home-team-card">
+                <div class="home-team-image">
+                  {%
+                    include figure.liquid
+                    loading="lazy"
+                    path=member.image
+                    sizes="220px"
+                    alt="team member photo"
+                    class="home-team-img"
+                    cache_bust=true
+                  %}
+                </div>
+                <div class="home-team-meta">
+                  <div class="home-team-name">{{ member.name }}</div>
+                  <div class="home-team-role">{{ member.role }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {% assign equipment_url = '/equipment/' | relative_url %}
+  {% assign lab_items = site.data.equipment_gallery.lab %}
+  <section class="home-section home-section--divider">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>设备</h2>
+        <a class="home-section-link" href="{{ equipment_url }}">查看全部</a>
+      </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+        {% for item in lab_items limit: 3 %}
+          {% assign image_path = item.src | remove_first: '/' %}
+          <div class="col mb-4">
+            <a class="home-photo-link" href="{{ equipment_url }}">
+              <div class="home-photo">
+                {%
+                  include figure.liquid
+                  loading="lazy"
+                  path=image_path
+                  sizes="(min-width: 992px) 300px, 92vw"
+                  alt=item.alt
+                  class="home-photo-img"
+                  cache_bust=true
+                %}
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-cta">
+    <div class="container">
+      <div class="home-cta-card">
+        <div class="home-cta-copy">
+          <h2 class="home-cta-title">加入我们</h2>
+          <p class="home-cta-text">欢迎对涉水具身智能与视觉感知感兴趣的同学加入团队，一起把研究做进真实场景。</p>
+        </div>
+        <div class="home-cta-actions">
+          <a class="btn btn-primary" href="{{ '/jobs/' | relative_url }}">查看招聘</a>
+          <a class="btn btn-outline-primary" href="{{ '/contact/' | relative_url }}">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

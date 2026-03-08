@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<div class="home-lab">
+  {% include home/top_banner.liquid %}
+  {% include home/hero.liquid %}
+
+  {% if page.mission %}
+    <section class="home-section home-mission">
+      <div class="container">
+        <div class="home-section-header">
+          <h2>{{ page.mission_title | default: 'Mission' }}</h2>
+        </div>
+        <div class="home-prose">
+          {{ page.mission | markdownify }}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="home-section home-symmetric-boxes">
+    <div class="container">
+      <div class="home-symmetric-grid">
+        <div class="home-symmetric-box" aria-hidden="true"></div>
+        <div class="home-symmetric-box" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  {% include home/section_research.liquid %}
+  {% include home/section_news.liquid %}
+  {% include home/section_team.liquid %}
+
+  <section class="home-section home-cta">
+    <div class="container">
+      <div class="home-cta-card">
+        <div class="home-cta-copy">
+          <h2>{{ page.cta_title | default: 'Get in touch' }}</h2>
+          <p class="home-cta-text">
+            {{ page.cta_text | default: 'Interested in collaborating, joining the lab, or learning more about our work?' }}
+          </p>
+        </div>
+        <div class="home-cta-actions">
+          <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">
+            {{ page.cta_button_label | default: 'Contact' }}
+          </a>
+          <a class="btn btn-outline-primary" href="{{ '/projects/' | relative_url }}">
+            {{ page.cta_secondary_label | default: 'Explore research' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

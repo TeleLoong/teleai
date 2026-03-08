@@ -1,0 +1,103 @@
+@use "variables" as v;
+
+.research-page {
+  margin-top: 0.5rem;
+  font-size: 1.08rem;
+}
+
+.research-intro {
+  max-width: 60rem;
+  margin: 0 0 1.4rem;
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: var(--global-text-color);
+}
+
+.research-quicklinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0 0 1.5rem;
+
+  .btn {
+    font-size: 0.95rem;
+    padding: 0.45rem 1rem;
+    border-color: var(--global-divider-color);
+    color: var(--global-theme-color);
+
+    &:hover {
+      border-color: var(--global-theme-color);
+      background: var(--global-theme-color);
+      color: var(--global-hover-text-color);
+    }
+  }
+}
+
+.research-grid {
+  row-gap: 1.25rem;
+}
+
+.research-card {
+  height: 100%;
+  padding: 1.35rem 1.4rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 16px;
+  background: var(--global-card-bg-color);
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .research-desc {
+    margin: 0 0 0.95rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--global-text-color);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.2rem;
+
+    li {
+      margin: 0.45rem 0;
+      line-height: 1.7;
+      color: var(--global-text-color);
+    }
+  }
+}
+
+.research-image {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 1rem;
+  border: 1px solid var(--global-divider-color);
+}
+
+@media (max-width: 576px) {
+  .research-page {
+    font-size: 1rem;
+  }
+
+  .research-intro {
+    font-size: 1rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .research-card {
+    padding: 1rem 1.05rem;
+
+    h2 {
+      font-size: 1.35rem;
+    }
+  }
+
+  .research-image {
+    height: 190px;
+  }
+}

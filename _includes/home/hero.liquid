@@ -1,0 +1,37 @@
+{% assign hero_title = page.hero.title | default: site.title | default: 'Your Lab Name' %}
+{% assign hero_subtitle = page.hero.subtitle | default: site.description %}
+{% assign primary_label = page.hero.primary_label | default: 'Research' %}
+{% assign primary_url = page.hero.primary_url | default: '/projects/' %}
+{% assign secondary_label = page.hero.secondary_label | default: 'Team' %}
+{% assign secondary_url = page.hero.secondary_url | default: '/team/' %}
+
+<section class="home-hero">
+  <div class="container">
+    <div class="home-hero-inner">
+      <div class="home-hero-copy">
+        <h1 class="home-hero-title">{{ hero_title | newline_to_br }}</h1>
+        {% if hero_subtitle %}
+          <p class="home-hero-subtitle">{{ hero_subtitle }}</p>
+        {% endif %}
+        <div class="home-hero-actions">
+          <a class="btn btn-primary" href="{{ primary_url | relative_url }}">{{ primary_label }}</a>
+          <a class="btn btn-outline-primary" href="{{ secondary_url | relative_url }}">{{ secondary_label }}</a>
+        </div>
+      </div>
+
+      {% if page.hero.image %}
+        <div class="home-hero-media">
+          {%
+            include figure.liquid
+            loading="eager"
+            path=page.hero.image
+            sizes="(min-width: 930px) 420px, 92vw"
+            alt="hero image"
+            class="home-hero-image"
+            cache_bust=true
+          %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

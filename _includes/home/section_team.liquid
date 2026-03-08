@@ -1,0 +1,161 @@
+{% assign enabled = true %}
+{% if page.team_preview and page.team_preview.enabled == false %}
+  {% assign enabled = false %}
+{% endif %}
+{% if enabled %}
+  {% assign team_url = page.team_preview.url | default: '/team/' %}
+  <section class="home-section home-team">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>{{ page.team_preview.title | default: 'Team' }}</h2>
+        <a class="home-section-link" href="{{ team_url | relative_url }}">Meet the team</a>
+      </div>
+
+      {% assign members = page.team_preview.members %}
+      {% if members == null or members.size == 0 %}
+        {% assign team = site.data.team %}
+        {% if team and team.featured_ids %}
+          {% assign all_members = '' | split: ',' %}
+          {% if team.lead %}
+            {% assign all_members = all_members | push: team.lead %}
+          {% endif %}
+          {% if team.groups %}
+            {% for group in team.groups %}
+              {% if group.members %}
+                {% for member in group.members %}
+                  {% assign all_members = all_members | push: member %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          {% assign featured_members = '' | split: ',' %}
+          {% for featured_id in team.featured_ids %}
+            {% assign found = all_members | where: 'id', featured_id | first %}
+            {% if found %}
+              {% assign featured_members = featured_members | push: found %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign members = featured_members %}
+        {% endif %}
+      {% endif %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+        {% if members %}
+          {% for member in members limit: 4 %}
+            <div class="col">
+              <a class="home-team-card-link" href="{{ team_url | relative_url }}">
+                <div class="home-team-card">
+                  <div class="home-team-image">
+                    {%
+                      include figure.liquid
+                      loading="lazy"
+                      path=member.image
+                      sizes="180px"
+                      alt="team member photo"
+                      class="home-team-img"
+                      cache_bust=true
+                    %}
+                  </div>
+                  <div class="home-team-meta">
+                    <div class="home-team-name">{{ member.name }}</div>
+                    <div class="home-team-role">{{ member.role }}</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col">
+            <a class="home-team-card-link" href="{{ team_url | relative_url }}">
+              <div class="home-team-card">
+                <div class="home-team-image">
+                  {%
+                    include figure.liquid
+                    loading="lazy"
+                    path="assets/img/TeleAi.jpg"
+                    sizes="180px"
+                    alt="team member photo"
+                    class="home-team-img"
+                    cache_bust=true
+                  %}
+                </div>
+                <div class="home-team-meta">
+                  <div class="home-team-name">Principal Investigator</div>
+                  <div class="home-team-role">Faculty</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a class="home-team-card-link" href="{{ team_url | relative_url }}">
+              <div class="home-team-card">
+                <div class="home-team-image">
+                  {%
+                    include figure.liquid
+                    loading="lazy"
+                    path="assets/img/1.jpg"
+                    sizes="180px"
+                    alt="team member photo"
+                    class="home-team-img"
+                    cache_bust=true
+                  %}
+                </div>
+                <div class="home-team-meta">
+                  <div class="home-team-name">PhD Student</div>
+                  <div class="home-team-role">Robotics</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a class="home-team-card-link" href="{{ team_url | relative_url }}">
+              <div class="home-team-card">
+                <div class="home-team-image">
+                  {%
+                    include figure.liquid
+                    loading="lazy"
+                    path="assets/img/10.jpg"
+                    sizes="180px"
+                    alt="team member photo"
+                    class="home-team-img"
+                    cache_bust=true
+                  %}
+                </div>
+                <div class="home-team-meta">
+                  <div class="home-team-name">MS Student</div>
+                  <div class="home-team-role">Perception</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <a class="home-team-card-link" href="{{ team_url | relative_url }}">
+              <div class="home-team-card">
+                <div class="home-team-image">
+                  {%
+                    include figure.liquid
+                    loading="lazy"
+                    path="assets/img/3.jpg"
+                    sizes="180px"
+                    alt="team member photo"
+                    class="home-team-img"
+                    cache_bust=true
+                  %}
+                </div>
+                <div class="home-team-meta">
+                  <div class="home-team-name">Undergraduate</div>
+                  <div class="home-team-role">Systems</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if page.team_preview.note %}
+        <p class="home-muted home-team-note">{{ page.team_preview.note }}</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

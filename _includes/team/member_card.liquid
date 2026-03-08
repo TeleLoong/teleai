@@ -1,0 +1,98 @@
+{% assign member = include.member %}
+{% assign variant = include.variant | default: 'default' %}
+{% assign image_path = member.image | default: 'assets/img/TeleAi.jpg' %}
+{% assign has_links = false %}
+{% if member.links and member.links.size > 0 %}
+  {% assign has_links = true %}
+{% endif %}
+{% assign has_email = false %}
+{% if member.email %}
+  {% assign has_email = true %}
+{% endif %}
+
+{% assign image_sizes = '260px' %}
+{% if variant == 'lead' %}
+  {% assign image_sizes = '420px' %}
+{% endif %}
+
+<div class="team-card team-card--{{ variant }}">
+  <div class="team-card-image">
+    {%
+      include figure.liquid
+      loading="lazy"
+      path=image_path
+      sizes=image_sizes
+      alt=member.name
+      class="team-card-img"
+      cache_bust=true
+    %}
+  </div>
+
+  <div class="team-card-body">
+    {% if variant == 'lead' %}
+      <h2 class="team-card-name team-card-name--lead">{{ member.name }}</h2>
+    {% else %}
+      <div class="team-card-name">{{ member.name }}</div>
+    {% endif %}
+
+    {% if member.role %}
+      <div class="team-card-role">{{ member.role }}</div>
+    {% endif %}
+
+    {% if member.subtitle %}
+      <div class="team-card-subtitle">{{ member.subtitle }}</div>
+    {% endif %}
+
+    {% if variant == 'lead' and member.bio %}
+      <div class="team-card-bio">
+        {{ member.bio | markdownify }}
+      </div>
+    {% endif %}
+
+    {% if member.email or has_links %}
+      <div class="team-card-links" aria-label="Member links">
+        {% if variant == 'lead' %}
+          <div class="team-card-meta">
+            {% if has_email %}
+              <div class="team-card-meta-row">
+                <span class="team-card-meta-label">Email:</span>
+                <a class="team-card-link team-card-link--text" href="mailto:{{ member.email | encode_email }}">
+                  {{- member.email | encode_email -}}
+                </a>
+              </div>
+            {% endif %}
+            {% if has_links %}
+              <div class="team-card-meta-row">
+                <span class="team-card-meta-label">Links:</span>
+                <div class="team-card-links-inline">
+                  {% for link in member.links %}
+                    {% if link.url and link.label %}
+                      <a class="team-card-link team-card-link--text" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                        {{- link.label -}}
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="team-card-links-inline">
+            {% if has_email %}
+              <a class="team-card-link team-card-link--text" href="mailto:{{ member.email | encode_email }}">Email</a>
+            {% endif %}
+            {% if has_links %}
+              {% for link in member.links %}
+                {% if link.url and link.label %}
+                  <a class="team-card-link team-card-link--text" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                    {{- link.label -}}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>

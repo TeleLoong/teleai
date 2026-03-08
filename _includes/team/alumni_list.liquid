@@ -1,0 +1,26 @@
+{% assign alumni_groups = include.alumni_groups | default: empty %}
+
+{% for group in alumni_groups %}
+  {% assign members = group.members | default: empty %}
+  {% if members.size > 0 %}
+    <div class="team-alumni-group">
+      <h3 class="team-group-title">{{ group.title }}</h3>
+      <ul class="team-alumni-list">
+        {% for person in members %}
+          <li class="team-alumni-item">
+            <span class="team-alumni-name">{{ person.name }}</span>
+            {% if person.years %}
+              <span class="team-alumni-years">{{ person.years }}</span>
+            {% endif %}
+            {% if person.now %}
+              <span class="team-alumni-now">{{ person.now }}</span>
+            {% endif %}
+            {% if person.note %}
+              <span class="team-alumni-note">{{ person.note }}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endfor %}

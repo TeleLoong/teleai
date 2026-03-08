@@ -1,0 +1,363 @@
+@use "variables" as *;
+
+.jobs-page {
+  --jobs-accent: #00274c;
+  --jobs-accent-ink: #001a33;
+  --jobs-surface: var(--global-card-bg-color);
+  padding: 0 0 2.75rem;
+  background: var(--global-bg-color);
+}
+
+.jobs-page .container {
+  max-width: $max-content-width;
+}
+
+.jobs-hero {
+  padding: 1.35rem 0 1.1rem;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--jobs-accent) 7%, transparent), transparent 78%),
+    radial-gradient(800px 240px at 12% 12%, rgba(0, 39, 76, 0.09), transparent 60%);
+  border-bottom: 1px solid color-mix(in srgb, var(--global-divider-color) 90%, transparent);
+}
+
+.jobs-hero-content {
+  max-width: 760px;
+}
+
+.jobs-hero-kicker {
+  margin: 0 0 0.25rem;
+  font-size: 1.22rem;
+  letter-spacing: 0.01em;
+  color: var(--jobs-accent);
+  font-weight: 800;
+}
+
+.jobs-hero-kicker--only {
+  font-size: 2.44rem;
+  font-weight: 850;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.jobs-hero-title {
+  margin: 0;
+  font-size: clamp(2.05rem, 4vw, 2.9rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.jobs-hero-subtitle {
+  margin: 0.8rem 0 0;
+  color: var(--global-text-color-light);
+  font-size: 1.04rem;
+  max-width: 60ch;
+}
+
+.jobs-hero-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.jobs-hero-actions .jobs-btn {
+  font-size: 0.96rem;
+  padding: 0.6rem 1.15rem;
+}
+
+.jobs-hero-links {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+}
+
+.jobs-hero-link {
+  color: var(--jobs-accent);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.jobs-hero-link:hover {
+  color: var(--jobs-accent);
+  text-decoration: underline;
+}
+
+.jobs-hero-link-sep {
+  margin: 0 0.4rem;
+  opacity: 0.7;
+}
+
+.jobs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.52rem 1.05rem;
+  font-size: 0.93rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.jobs-btn--primary {
+  background: var(--jobs-accent);
+  border-color: var(--jobs-accent);
+  color: #fff;
+}
+
+.jobs-btn--primary:hover {
+  color: #fff;
+  background: color-mix(in srgb, var(--jobs-accent) 92%, #000);
+  border-color: color-mix(in srgb, var(--jobs-accent) 92%, #000);
+  box-shadow: 0 10px 26px rgba(0, 39, 76, 0.18);
+}
+
+.jobs-btn--secondary {
+  background: color-mix(in srgb, var(--jobs-surface) 85%, transparent);
+  color: var(--jobs-accent-ink);
+  border-color: color-mix(in srgb, var(--jobs-accent) 16%, var(--global-divider-color));
+}
+
+.jobs-btn--secondary:hover {
+  color: var(--jobs-accent);
+  border-color: color-mix(in srgb, var(--jobs-accent) 45%, var(--global-divider-color));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+.jobs-btn--disabled {
+  background: color-mix(in srgb, var(--jobs-surface) 92%, transparent);
+  color: var(--global-text-color-light);
+  border-color: var(--global-divider-color);
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.jobs-btn--block {
+  width: 100%;
+}
+
+.jobs-main {
+  padding-top: 1rem;
+}
+
+.jobs-main-left {
+  margin-bottom: 1.2rem;
+}
+
+.jobs-section-title {
+  margin: 0.2rem 0 0.85rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.015em;
+}
+
+.jobs-role-card {
+  border: 1px solid color-mix(in srgb, var(--global-divider-color) 92%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--jobs-surface) 94%, transparent);
+  margin-bottom: 0.95rem;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.jobs-role-card:hover {
+  border-color: color-mix(in srgb, var(--jobs-accent) 28%, var(--global-divider-color));
+  box-shadow: 0 20px 58px rgba(0, 0, 0, 0.075);
+}
+
+.jobs-role-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.95rem 1.05rem;
+  background: color-mix(in srgb, var(--global-bg-color) 88%, transparent);
+  position: relative;
+}
+
+.jobs-role-summary::-webkit-details-marker {
+  display: none;
+}
+
+.jobs-role-summary::after {
+  content: "";
+  position: absolute;
+  right: 1.05rem;
+  top: 1.25rem;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid color-mix(in srgb, var(--jobs-accent) 42%, var(--global-text-color));
+  border-bottom: 2px solid color-mix(in srgb, var(--jobs-accent) 42%, var(--global-text-color));
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+  opacity: 0.9;
+}
+
+details[open] > .jobs-role-summary::after {
+  transform: rotate(-135deg);
+}
+
+.jobs-role-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  padding-right: 1.8rem;
+}
+
+.jobs-role-title {
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: -0.012em;
+}
+
+.jobs-role-body {
+  padding: 0.95rem 1.05rem 1.05rem;
+  border-top: 1px solid color-mix(in srgb, var(--global-divider-color) 92%, transparent);
+}
+
+.jobs-role-lead {
+  margin: 0 0 0.65rem;
+  color: var(--global-text-color-light);
+}
+
+.jobs-role-jd h3 {
+  margin-top: 0.8rem;
+  margin-bottom: 0.45rem;
+  font-size: 1.02rem;
+}
+
+.jobs-role-jd ul {
+  margin-bottom: 0.6rem;
+}
+
+.jobs-empty {
+  border: 1px dashed var(--global-divider-color);
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--global-text-color-light);
+}
+
+.jobs-apply-card {
+  position: sticky;
+  top: 6rem;
+  border: 1px solid color-mix(in srgb, var(--global-divider-color) 92%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--jobs-surface) 96%, transparent);
+  padding: 1.05rem;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.065);
+  overflow: hidden;
+}
+
+.jobs-apply-title {
+  margin: 0.2rem 0 0.85rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.015em;
+  font-weight: 750;
+  color: var(--global-text-color);
+}
+
+.jobs-apply-item {
+  margin: 0 0 0.7rem;
+}
+
+.jobs-apply-email {
+  display: inline-block;
+  padding: 0.12rem 0.4rem;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--jobs-accent) 16%, var(--global-divider-color));
+  background: color-mix(in srgb, var(--jobs-accent) 6%, transparent);
+  color: var(--jobs-accent-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.jobs-apply-email:hover {
+  text-decoration: underline;
+  color: var(--jobs-accent);
+}
+
+.jobs-apply-label {
+  margin: 0.3rem 0 0.25rem;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light);
+}
+
+.jobs-apply-list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.1rem;
+}
+
+.jobs-boss-placeholder {
+  border: 1px dashed var(--global-divider-color);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  text-align: center;
+  color: var(--global-text-color-light);
+  margin-bottom: 0.8rem;
+}
+
+.jobs-apply-note {
+  margin: 0.55rem 0 0;
+  font-size: 0.88rem;
+  color: var(--global-text-color-light);
+}
+
+.jobs-qr {
+  margin: 0.4rem 0 0.95rem;
+}
+
+.jobs-qr-image img {
+  width: 100%;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+}
+
+.jobs-qr-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px dashed color-mix(in srgb, var(--jobs-accent) 20%, var(--global-divider-color));
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--global-text-color-light);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--jobs-accent) 7%, transparent), transparent),
+    color-mix(in srgb, var(--global-bg-color) 86%, transparent);
+}
+
+.jobs-qr-mark {
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--jobs-accent) 65%, var(--global-text-color));
+}
+
+.jobs-qr-note {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 991.98px) {
+  .jobs-apply-card {
+    position: static;
+    margin-top: 0.25rem;
+  }
+}
+
+html[data-theme="dark"] .jobs-page {
+  --jobs-accent-ink: #eaf2ff;
+}
+
+html[data-theme="dark"] .jobs-btn--secondary {
+  color: var(--global-text-color);
+  border-color: color-mix(in srgb, var(--jobs-accent) 22%, var(--global-divider-color));
+}
+
+html[data-theme="dark"] .jobs-apply-email {
+  color: color-mix(in srgb, var(--global-text-color) 92%, transparent);
+  border-color: color-mix(in srgb, var(--jobs-accent) 28%, var(--global-divider-color));
+  background: color-mix(in srgb, var(--jobs-accent) 14%, transparent);
+}

@@ -1,0 +1,16 @@
+# TeleAI overlay slots (percent-based positioning relative to the main image).
+#
+# Units:
+# - left/top/width/height: percent (%)
+# - radius: px
+#
+# Current slot:
+# - "deep-sea ROV cable operation" top box (GIF overlay)
+
+- id: deep-sea-rov
+  src_gif: /assets/gif/image20.GIF
+  left: 27.15
+  top: 23.61
+  width: 18.20
+  height: 21.32
+  radius: 0

@@ -1,0 +1,27 @@
+{% assign enabled = true %}
+{% if page.research and page.research.enabled == false %}
+  {% assign enabled = false %}
+{% endif %}
+{% if enabled %}
+  <section class="home-section home-research">
+    <div class="container">
+      <div class="home-section-header">
+        <h2>{{ page.research.title | default: 'Research highlights' }}</h2>
+        <a class="home-section-link" href="{{ '/projects/' | relative_url }}">View all</a>
+      </div>
+
+      {% assign projects_sorted = site.projects | sort: 'importance' %}
+      {% assign limit = page.research.limit | default: 3 %}
+
+      {% if projects_sorted != blank %}
+        <div class="row row-cols-1 row-cols-md-3">
+          {% for project in projects_sorted limit: limit %}
+            {% include projects.liquid %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="home-muted">No projects yet.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

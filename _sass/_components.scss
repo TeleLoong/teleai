@@ -38,6 +38,8 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  box-shadow: none;
+  border: 1px solid var(--global-divider-color);
 
   .card-img {
     width: 100%;
@@ -115,6 +117,20 @@ ul.task-list input[type="checkbox"] {
   background-color: transparent;
   border: none;
   color: var(--global-text-color);
+}
+
+// Buttons
+
+.btn {
+  font-size: 1.02rem;
+}
+
+.btn-sm {
+  font-size: 0.95rem;
+}
+
+.btn-lg {
+  font-size: 1.14rem;
 }
 
 .date-column {

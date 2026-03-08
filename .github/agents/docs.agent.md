@@ -73,7 +73,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
   - Bad: Copying the entire YAML structure into docs
 - Link to official library documentation for third-party tools
   - Example: "For Jekyll basics, see [Jekyll documentation](https://jekyllrb.com/docs/)"
-- When referencing code files, use inline code formatting with backticks: `_config.yml`, `_pages/about.md`
+- When referencing code files, use inline code formatting with backticks: `_config.yml`, `_pages/home.md`
 
 **Point users to source code:**
 

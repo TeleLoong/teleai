@@ -1,0 +1,32 @@
+@use "variables" as v;
+
+.equipment-gallery {
+  row-gap: 1rem;
+}
+
+.equipment-gallery-item {
+  height: 100%;
+}
+
+.equipment-gallery-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--global-divider-color);
+  background: var(--global-card-bg-color);
+}
+
+.equipment-caption {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+  line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+  .equipment-gallery-image img {
+    height: 190px;
+  }
+}
+

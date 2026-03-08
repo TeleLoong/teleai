@@ -1,0 +1,85 @@
+---
+layout: page
+---
+
+{% assign team = site.data.team %}
+{% assign has_current_members = false %}
+{% if team.groups %}
+  {% for group in team.groups %}
+    {% assign group_members = group.members | default: empty %}
+    {% if group_members.size > 0 %}
+      {% assign has_current_members = true %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% assign has_alumni = false %}
+{% if team.alumni_groups %}
+  {% for group in team.alumni_groups %}
+    {% assign group_members = group.members | default: empty %}
+    {% if group_members.size > 0 %}
+      {% assign has_alumni = true %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<div class="team-page">
+  {% if team.lead %}
+    <a class="anchor" id="lead"></a>
+    <div class="team-bar team-bar--top" aria-hidden="true">
+      <div class="container">
+        <div class="team-bar-title">负责人</div>
+      </div>
+    </div>
+
+    <section class="team-section team-lead" aria-label="Team lead">
+      <div class="team-content container">
+        {% include team/member_card.liquid member=team.lead variant="lead" %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if has_current_members %}
+    <a class="anchor" id="members"></a>
+    <div class="team-bar team-bar--members" aria-hidden="true">
+      <div class="container">
+        <div class="team-bar-title">团队成员</div>
+      </div>
+    </div>
+
+    <section class="team-section team-members" aria-label="Current members">
+      <div class="team-content container">
+        {% for group in team.groups %}
+          {% assign group_members = group.members | default: empty %}
+          {% if group_members.size > 0 %}
+            <div class="team-group">
+              <h3 class="team-group-title">{{ group.title }}</h3>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                {% for member in group_members %}
+                  <div class="col mb-4">
+                    {% include team/member_card.liquid member=member %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if has_alumni %}
+    <a class="anchor" id="alumni"></a>
+    <div class="team-bar" aria-hidden="true">
+      <div class="container">
+        <div class="team-bar-title">校友</div>
+      </div>
+    </div>
+
+    <section class="team-section team-alumni" aria-label="Alumni">
+      <div class="team-content container">
+        {% include team/alumni_list.liquid alumni_groups=team.alumni_groups %}
+      </div>
+    </section>
+  {% endif %}
+</div>

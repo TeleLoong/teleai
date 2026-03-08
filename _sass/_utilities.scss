@@ -301,7 +301,19 @@ nav[data-toggle="toc"] {
   padding: 8px 12px;
 }
 
+.bibsearch-form-input {
+  color: var(--global-text-color);
+  background: var(--global-bg-color);
+  border-color: var(--global-divider-color);
+  box-shadow: none;
+  border-radius: 4px;
+}
+
 .newsletter-form-input:focus {
+  border-color: var(--global-theme-color) !important;
+}
+
+.bibsearch-form-input:focus {
   border-color: var(--global-theme-color) !important;
 }
 

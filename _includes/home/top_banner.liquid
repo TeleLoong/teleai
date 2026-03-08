@@ -1,0 +1,18 @@
+{% assign enabled = true %}
+{% if page.top_banner and page.top_banner.enabled == false %}
+  {% assign enabled = false %}
+{% endif %}
+
+{% if enabled and page.top_banner and page.top_banner.image %}
+  <div
+    class="home-top-banner"
+    style="
+      --home-top-banner-image: url('{{ page.top_banner.image | relative_url }}');
+      --home-top-banner-height: {{ page.top_banner.height | default: '220px' }};
+      --home-top-banner-position: {{ page.top_banner.position | default: 'center' }};
+      --home-top-banner-overlay: {{ page.top_banner.overlay | default: 'rgba(0, 0, 0, 0)' }};
+    "
+    role="img"
+    aria-label="top banner"
+  ></div>
+{% endif %}

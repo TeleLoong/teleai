@@ -1,0 +1,88 @@
+---
+layout: page
+---
+
+{% assign jobs = site.data.jobs %}
+{% assign apply = jobs.apply %}
+{% assign roles = jobs.roles | default: empty %}
+{% assign has_roles = false %}
+{% if roles.size > 0 %}
+  {% assign has_roles = true %}
+{% endif %}
+
+<div class="jobs-page">
+  <section class="jobs-hero">
+    <div class="container jobs-shell">
+      <div class="jobs-hero-content">
+        <h1 class="jobs-hero-kicker jobs-hero-kicker--only">加入我们</h1>
+        <p class="sr-only">{{ page.title }}</p>
+        <p class="sr-only">
+          {{ page.description | default: "欢迎加入我们，围绕空海跨域具身智能体与涉水光学/视觉开展研究与工程实践。" }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="jobs-main">
+    <div class="container jobs-shell">
+      <div class="row">
+        <div class="col-lg-8 jobs-main-left">
+          <h2 class="jobs-section-title" id="jobs-jd">岗位介绍</h2>
+
+          {% if has_roles %}
+            {% for role in roles %}
+              <details class="jobs-role-card" {% if role.id == 'intern' or role.id == 'phd' %}open{% endif %}>
+                <summary class="jobs-role-summary">
+                  <div class="jobs-role-heading">
+                    <span class="jobs-role-title">{{ role.title | default: "岗位" }}</span>
+                  </div>
+                </summary>
+
+                <div class="jobs-role-body">
+                  {% if role.summary %}
+                    <p class="jobs-role-lead">{{ role.summary }}</p>
+                  {% endif %}
+                  {% if role.jd %}
+                    <div class="jobs-role-jd">
+                      {{ role.jd | markdownify }}
+                    </div>
+                  {% endif %}
+                </div>
+              </details>
+            {% endfor %}
+          {% else %}
+            <p class="jobs-empty">暂无开放岗位，欢迎通过邮件联系。</p>
+          {% endif %}
+        </div>
+
+        <div class="col-lg-4 jobs-main-right">
+          <aside class="jobs-apply-card" aria-label="申请方式" id="jobs-apply">
+            <h3 class="jobs-apply-title">申请方式</h3>
+
+            <div class="jobs-qr">
+              {% if apply and apply.qr and apply.qr.image %}
+                {% include figure.liquid path=apply.qr.image alt=apply.qr.alt class="img-fluid jobs-qr-image" %}
+              {% else %}
+                <div class="jobs-qr-placeholder" role="img" aria-label="二维码待更新">
+                  <span class="jobs-qr-mark">QR</span>
+                  <small class="jobs-qr-note">二维码待更新</small>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="jobs-apply-boss">
+              {% if apply and apply.boss and apply.boss.url %}
+                <a class="jobs-btn jobs-btn--block jobs-btn--primary" href="{{ apply.boss.url }}" target="_blank" rel="noopener noreferrer">
+                  {{ apply.boss.label | default: "Boss 直聘" }}
+                </a>
+                <p class="jobs-apply-note">扫码或点击 Boss 直聘投递。</p>
+              {% elsif apply and apply.boss %}
+                <div class="jobs-boss-placeholder">{{ apply.boss.label | default: "Boss 直聘" }}链接待更新</div>
+              {% endif %}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

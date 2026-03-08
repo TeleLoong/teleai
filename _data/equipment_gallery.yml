@@ -1,0 +1,21 @@
+lab:
+  - src: /assets/img/1.jpg
+    alt: 实验室照片 1
+    caption: ""
+  - src: /assets/img/10.jpg
+    alt: 实验室照片 2
+    caption: ""
+  - src: /assets/img/3.jpg
+    alt: 实验室照片 3
+    caption: ""
+
+workspace:
+  - src: /assets/img/4.jpg
+    alt: 工作环境照片 1
+    caption: ""
+  - src: /assets/img/5.jpg
+    alt: 工作环境照片 2
+    caption: ""
+  - src: /assets/img/6.jpg
+    alt: 工作环境照片 3
+    caption: ""

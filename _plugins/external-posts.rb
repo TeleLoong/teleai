@@ -13,17 +13,21 @@ module ExternalPosts
       if site.config['external_sources'] != nil
         site.config['external_sources'].each do |src|
           puts "Fetching external posts from #{src['name']}:"
-          if src['rss_url']
-            fetch_from_rss(site, src)
-          elsif src['posts']
-            fetch_from_urls(site, src)
+          begin
+            if src['rss_url']
+              fetch_from_rss(site, src)
+            elsif src['posts']
+              fetch_from_urls(site, src)
+            end
+          rescue StandardError => e
+            puts "Warning: external posts fetch failed for #{src['name']} - #{e.class}: #{e.message}"
           end
         end
       end
     end
 
     def fetch_from_rss(site, src)
-      xml = HTTParty.get(src['rss_url']).body
+      xml = safe_get(src['rss_url'])
       return if xml.nil?
       begin
         feed = Feedjira.parse(xml)
@@ -101,7 +105,8 @@ module ExternalPosts
     end
 
     def fetch_content_from_url(url)
-      html = HTTParty.get(url).body
+      html = safe_get(url)
+      return { title: '', content: '', summary: '' } if html.nil?
       parsed_html = Nokogiri::HTML(html)
 
       title = parsed_html.at('head title')&.text.strip || ''
@@ -118,6 +123,16 @@ module ExternalPosts
         summary: description
         # Note: The published date is now added in the fetch_from_urls method.
       }
+    end
+
+    def safe_get(url)
+      begin
+        response = HTTParty.get(url)
+        response&.body
+      rescue StandardError => e
+        puts "Warning: unable to fetch #{url} - #{e.class}: #{e.message}"
+        nil
+      end
     end
 
   end
