@@ -11,7 +11,7 @@ ninja.data = [{
     },
   },{id: "nav-团队",
           title: "团队",
-          description: "团队成员与校友信息。",
+          description: "团队成员信息。",
           section: "Navigation",
           handler: () => {
             window.location.href = "/al-folio/team/";
