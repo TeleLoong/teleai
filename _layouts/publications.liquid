@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+<div class="post publications-page">
+  {% unless page.hide_page_header %}
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <p class="post-description">{{ page.description }}</p>
+    </header>
+  {% endunless %}
+
+  <article>
+    {% if content and content != blank %}
+      {{ content }}
+    {% endif %}
+
+    {% assign grouped_publications = page.manual_publications | group_by: "year" | sort: "name" | reverse %}
+    {% if grouped_publications and grouped_publications.size > 0 %}
+      <div class="publications publications--list publications--manual">
+        <div class="manual-publications">
+          {% for year_group in grouped_publications %}
+            {% unless forloop.first %}
+              <div class="year-divider" aria-hidden="true"></div>
+            {% endunless %}
+            {% for pub in year_group.items %}
+              <article class="publication-entry">
+                {% if forloop.first %}
+                  <div class="entry-year-badge">{{ year_group.name }}</div>
+                {% endif %}
+
+                <div class="publication-row">
+                  {% assign image_value = pub.image | to_s | strip %}
+                  {% if image_value != "" %}
+                    <div class="publication-image">
+                      <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
+                    </div>
+                  {% endif %}
+
+                  <div class="publication-body">
+                    <h3 class="title">{{ pub.title }}</h3>
+
+                    {% assign authors_value = pub.authors | to_s | strip %}
+                    {% if authors_value != "" %}
+                      <div class="author">{{ authors_value }}</div>
+                    {% endif %}
+
+                    {% assign venue_value = pub.venue | to_s | strip %}
+                    {% if venue_value != "" %}
+                      <div class="periodical"><em>{{ venue_value }}</em></div>
+                    {% endif %}
+
+                    {% assign doi_value = pub.doi | to_s | strip %}
+                    {% if doi_value != "" %}
+                      {% assign doi_href = doi_value %}
+                      {% unless doi_href contains "://" %}
+                        {% assign doi_href = "https://doi.org/" | append: doi_href %}
+                      {% endunless %}
+                      <div class="pub-doi">
+                        <span class="pub-doi-icon">doi</span>
+                        <a href="{{ doi_href }}" target="_blank" rel="noopener noreferrer">{{ doi_value }}</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </article>
+</div>

@@ -34,7 +34,7 @@ team:
     image: assets/img/TeleAi.jpg
     email: you@university.edu
     links:
-      - label: Website
+      - label: Homepage
         url: https://example.com
       - label: Google Scholar
         url: https://scholar.google.com/

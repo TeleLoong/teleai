@@ -40,7 +40,7 @@
   height: var(--home-top-banner-height, 220px);
   background-image: linear-gradient(var(--home-top-banner-overlay, rgba(0, 0, 0, 0.0)), var(--home-top-banner-overlay, rgba(0, 0, 0, 0.0))),
     var(--home-top-banner-image);
-  background-size: cover;
+  background-size: var(--home-top-banner-size, cover);
   background-position: var(--home-top-banner-position, center);
   background-repeat: no-repeat;
   border-bottom: 0;

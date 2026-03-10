@@ -8,6 +8,10 @@
   const closeButton = modal.querySelector("[data-brand-modal-close]");
   const overlayVideos = modal.querySelectorAll("video");
   const root = document.documentElement;
+  const getStartTime = (video) => {
+    const start = Number(video.dataset.start);
+    return Number.isFinite(start) && start >= 0 ? start : 0;
+  };
 
   const setModalTop = () => {
     const height = navbar.offsetHeight || 0;
@@ -21,7 +25,7 @@
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     overlayVideos.forEach((video) => {
-      video.currentTime = 0;
+      video.currentTime = getStartTime(video);
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === "function") {
         playPromise.catch(() => {});
@@ -33,7 +37,7 @@
   const closeModal = () => {
     overlayVideos.forEach((video) => {
       video.pause();
-      video.currentTime = 0;
+      video.currentTime = getStartTime(video);
     });
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");

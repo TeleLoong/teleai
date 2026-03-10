@@ -12,15 +12,16 @@ main_container_class: "container-fluid px-0 mt-0"
 
 top_banner:
   enabled: true
-  image: /assets/img/4.jpg
+  image: /assets/img/主页横幅图.png
   height: 312px
+  size: 100% 100%
   position: center
   overlay: rgba(0, 0, 0, 0)
 
 home:
   hero:
     title: |-
-      water-related embodied
+      Water-related Embodied
       AI Group
     tagline: 面向真实涉水环境，让机器人看得清、学得会、动得稳。
     intro: 我们聚焦空海跨域具身智能体与涉水光学/视觉，推动从仿真到真实的系统级闭环验证与部署。
@@ -33,8 +34,8 @@ home:
     - text: 研究成果
       url: /publications/
       style: btn-outline-primary
-    - text: 招聘
-      url: /jobs/
+    - text: 设备
+      url: /equipment/
       style: btn-outline-primary
   research:
     title: 研究方向

@@ -3,7 +3,7 @@ layout: page
 title: 联系方式
 permalink: /contact/
 nav: true
-nav_order: 6
+nav_order: 7
 description: 联系信息与加入方式。
 hide_page_header: true
 main_container_class: "container mt-3"
