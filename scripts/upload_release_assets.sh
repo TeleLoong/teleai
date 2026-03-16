@@ -66,14 +66,14 @@ upload_asset() {
 extract_json_field() {
   local json="$1"
   local field="$2"
-  ruby -rjson -e 'obj = JSON.parse(ARGF.read); value = obj.fetch(ARGV[0], nil); puts(value.is_a?(String) || value.is_a?(Numeric) ? value : "")' "$field" <<<"$json"
+  ruby -rjson -e 'obj = JSON.parse(STDIN.read); value = obj.fetch(ARGV[0], nil); puts(value.is_a?(String) || value.is_a?(Numeric) ? value : "")' "$field" <<<"$json"
 }
 
 release_has_asset() {
   local json="$1"
   local asset_name="$2"
   ruby -rjson -e '
-    release = JSON.parse(ARGF.read)
+    release = JSON.parse(STDIN.read)
     exists = Array(release["assets"]).any? { |asset| asset["name"] == ARGV[0] }
     exit(exists ? 0 : 1)
   ' "$asset_name" <<<"$json"
