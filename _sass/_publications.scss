@@ -215,13 +215,26 @@
     margin-top: 0.25rem;
   }
 
+  .publications-section + .publications-section {
+    margin-top: 2.7rem;
+  }
+
+  .publications-section-title,
   .publications-category-bar {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    margin: 0.18rem 0 0.01rem 0;
+    margin: 0.18rem 0 0.5rem 0;
     flex-wrap: wrap;
     color: #000;
+  }
+
+  .publications-section-title {
+    display: block;
+    color: #000;
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1.05;
   }
 
   .publications-category-chip {
@@ -239,18 +252,86 @@
     line-height: 1;
   }
 
+  .publications-section-panel {
+    border-top: 2px solid #000;
+    padding-top: 0.8rem;
+  }
+
+  .publications-section-empty {
+    margin: 0;
+    color: var(--global-text-color-light);
+  }
+
+  .publications-projects {
+    .row {
+      margin-bottom: -1rem;
+    }
+  }
+
+  .publications-video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .publications-video-card {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+  }
+
+  .publications-video-media {
+    background: #000;
+  }
+
+  .publications-video-player {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .publications-video-card-description {
+    margin: 0.85rem 0 0;
+    color: var(--global-text-color);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
   @media (max-width: 768px) {
+    .publications-section + .publications-section {
+      margin-top: 2rem;
+    }
+
+    .publications-section-title,
     .publications-category-bar {
-      margin: 0.14rem 0 0.01rem 0;
+      margin: 0.14rem 0 0.4rem 0;
       gap: 0.3rem;
     }
 
+    .publications-section-title,
     .publications-category-chip {
       font-size: 1.34rem;
     }
 
     .publications-category-separator {
       font-size: 1.22rem;
+    }
+
+    .publications-section-panel {
+      border-top-width: 1px;
+      padding-top: 0.65rem;
+    }
+
+    .publications-video-grid {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .publications-video-card-description {
+      margin-top: 0.7rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
   }
 }
@@ -446,9 +527,8 @@
   position: relative;
 
   .manual-publications {
-    border-top: 2px solid #000;
     margin-top: 0;
-    padding-top: 0.18rem;
+    padding-top: 0;
   }
 
   .publication-entry {

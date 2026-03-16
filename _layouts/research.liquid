@@ -55,72 +55,7 @@ layout: default
                   </ul>
                 {% endif %}
 
-                {% if card.video %}
-                  {% assign research_video_url = card.video | bust_file_cache | relative_url %}
-                  {% assign research_video_parts = research_video_url | split: "?" %}
-                  {% assign research_playback_url = research_video_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-                  {% if research_video_parts.size > 1 %}
-                    {% assign research_playback_url = research_playback_url | append: "?" | append: research_video_parts[1] %}
-                  {% endif %}
-                  {% if card.video_poster %}
-                    {% assign research_poster_url = card.video_poster | bust_file_cache | relative_url %}
-                    {% assign research_poster_parts = research_poster_url | split: "?" %}
-                    {% assign research_poster_src = research_poster_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-                    {% if research_poster_parts.size > 1 %}
-                      {% assign research_poster_src = research_poster_src | append: "?" | append: research_poster_parts[1] %}
-                    {% endif %}
-                  {% endif %}
-
-                  <div class="report-cover research-player" data-research-player>
-                    <video
-                      class="report-media report-media--video research-video"
-                      preload="metadata"
-                      playsinline
-                      data-research-video
-                      data-research-id="research-video-{{ forloop.index0 }}"
-                      data-research-buffered-seek-only="true"
-                      data-original-src="{{ research_playback_url }}"
-                      data-research-src="{{ research_playback_url }}"
-                      {% if card.video_poster %}
-                        poster="{{ research_poster_src }}"
-                      {% endif %}
-                      aria-label="{{ card.video_alt | default: card.title | default: 'Research video' }}"
-                    >
-                      <source src="{{ research_playback_url }}" type="video/mp4">
-                      您的浏览器暂不支持视频播放。
-                    </video>
-                    <div class="report-video-status" data-research-video-status aria-live="polite"></div>
-                    <div class="report-player-controls" data-research-player-controls>
-                      <button
-                        type="button"
-                        class="report-player-toggle"
-                        data-research-player-toggle
-                        aria-label="播放视频"
-                      >
-                        播放
-                      </button>
-                      <div
-                        class="report-player-progress"
-                        data-research-progress
-                        role="slider"
-                        tabindex="0"
-                        aria-label="视频进度"
-                        aria-valuemin="0"
-                        aria-valuemax="0"
-                        aria-valuenow="0"
-                      >
-                        <div class="report-player-progress__buffered" data-research-buffered></div>
-                        <div class="report-player-progress__played" data-research-played></div>
-                        <div class="report-player-progress__thumb" data-research-thumb></div>
-                      </div>
-                      <div class="report-player-time" aria-live="off">
-                        <span data-research-current-time>0:00</span>
-                        <span>/</span>
-                        <span data-research-duration>0:00</span>
-                      </div>
-                    </div>
-                  </div>
-                {% elsif card.image %}
+                {% if card.image %}
                   <img
                     class="research-image"
                     src="{{ card.image | relative_url }}"

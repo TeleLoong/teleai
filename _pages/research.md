@@ -24,9 +24,8 @@ research:
         - 跨域任务建模与策略学习（仿真到真实）
         - 多模态感知与鲁棒自主决策
         - 系统级闭环评测与真实场景部署
-      video: /assets/research/demo-UAV-web.mp4
-      video_poster: /assets/research/demo-UAV-poster.jpg
-      video_alt: 空海跨域具身智能体演示视频
+      image: /assets/img/5.jpg
+      image_alt: 空海跨域具身智能体研究示意图
     - title: 涉水光学/视觉
       description: 研究涉水成像机理与视觉增强，提升水下/水面场景的可见性与任务可用性。
       bullets:

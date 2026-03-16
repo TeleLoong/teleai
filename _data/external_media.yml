@@ -1,0 +1,33 @@
+release_tag: media-assets-20260316
+release_base_url: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316
+
+publication_videos:
+  left:
+    playback: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/publication-air-sea-cross-domain-agent-0309-small.mp4
+  right:
+    playback: /assets/publication/underwater-camera-arm-demo-20260211-web.mp4
+    poster: /assets/publication/underwater-camera-arm-demo-20260211-poster.jpg
+    original: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/publication-underwater-camera-arm-demo-20260211.mp4
+    original_mov: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/publication-underwater-camera-arm-demo-20260211.mov
+
+report_videos:
+  - title: CCTV《走遍中国》
+    date: 2024-06-06
+    playback: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-cctv-zoubianzhongguo-20240606-low.mp4
+    original: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-cctv-zoubianzhongguo-20240606.mp4
+    poster: /assets/reports/cctv_走遍中国720P-20240606__poster.jpg
+  - title: 《解码科技史》读懂你的脑电波
+    date: 2024-04-13
+    playback: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-decode-tech-history-20240413-low.mp4
+    original: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-decode-tech-history-20240413.mp4
+    poster: /assets/reports/《解码科技史》 20240413 读懂你的脑电波__poster.jpg
+  - title: 央视13新闻1+1报道
+    date: 2024-03-27
+    playback: /assets/reports/央视13新闻1+1报道(原视频)-20240327__low.mp4
+    original: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-news1plus1-20240327.mp4
+    poster: /assets/reports/央视13新闻1+1报道(原视频)-20240327__poster.jpg
+  - title: 央视CGTN《澎湃中国》西北工业大学
+    date: 2024-09-20
+    playback: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-pengpai-china-20240920-low.mp4
+    original: https://github.com/Ajianplus/teleai/releases/download/media-assets-20260316/report-pengpai-china-20240920.mp4
+    poster: /assets/reports/央视CGTN年度系列纪录片《澎湃中国》讲述我校师生的奋斗故事-西北工业大学-20240920__poster.jpg

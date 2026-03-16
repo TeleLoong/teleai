@@ -183,15 +183,14 @@
 <script src="{{ '/assets/js/no_defer.js' | relative_url | bust_file_cache }}"></script>
 <script defer src="{{ '/assets/js/common.js' | relative_url | bust_file_cache }}"></script>
 <script defer src="{{ '/assets/js/copy_code.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
-<script defer src="{{ '/assets/js/brand-modal.js' | relative_url | bust_file_cache }}"></script>
 
 <!-- Jupyter Open External Links New Tab -->
 <script defer src="{{ '/assets/js/jupyter_new_tab.js' | relative_url | bust_file_cache }}"></script>
 {% if page.layout == 'reports' %}
   <script defer src="{{ '/assets/js/reports-video.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
-{% if page.layout == 'research' %}
-  <script defer src="{{ '/assets/js/research-video.js' | relative_url | bust_file_cache }}"></script>
+{% if page.layout == 'home' %}
+  <script defer src="{{ '/assets/js/home-overview-video.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
 
 <!-- Badges -->

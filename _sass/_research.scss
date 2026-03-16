@@ -80,31 +80,6 @@
   border: 1px solid var(--global-divider-color);
 }
 
-.research-player {
-  margin-top: 1rem;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 12px;
-  overflow: hidden;
-
-  .report-media {
-    border-bottom: 0;
-  }
-
-  .report-player-toggle[disabled] {
-    cursor: wait;
-    opacity: 0.82;
-  }
-}
-
-.research-video {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  margin-top: 0;
-  border: 0;
-  border-radius: 0;
-}
-
 @media (max-width: 576px) {
   .research-page {
     font-size: 1rem;
@@ -125,20 +100,5 @@
 
   .research-image {
     height: 190px;
-  }
-
-  .research-video {
-    height: 190px;
-  }
-
-  .research-player {
-    .report-player-controls {
-      grid-template-columns: auto 1fr;
-    }
-
-    .report-player-time {
-      grid-column: 1 / -1;
-      text-align: left;
-    }
   }
 }

@@ -100,6 +100,10 @@ home:
       - image: assets/img/4.jpg
         image_alt: 实验平台设备 3
         url: /equipment/
+  overview:
+    title: 项目总览图
+    image: assets/img/TeleAI-涉水具身智能团队.png
+    image_alt: 项目总览图
   cta:
     title: 加入我们
     text: 欢迎对涉水具身智能与视觉感知感兴趣的同学加入团队，一起把研究做进真实场景。

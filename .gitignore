@@ -21,3 +21,15 @@ assets/reports/《解码科技史》 20240413 读懂你的脑电波__low.mp4
 assets/reports/央视CGTN年度系列纪录片《澎湃中国》讲述我校师生的奋斗故事-西北工业大学__low.mp4
 assets/reports/cctv_走遍中国720P__low.mp4
 assets/research/demo-UAV.mp4
+
+# Local staging area for GitHub Release uploads.
+.media-release-assets/
+
+# Prevent oversized source media from entering normal Git history.
+assets/publication/*demo20260211.mov
+assets/publication/*demo20260211.mp4
+assets/publication/*0309-小.mp4
+assets/reports/*走遍中国*.mp4
+assets/reports/*解码科技史*.mp4
+assets/reports/*央视13新闻1+1报道*.mp4
+assets/reports/*澎湃中国*.mp4

@@ -32,6 +32,10 @@
     overflow: hidden;
   }
 
+  .home-hero-media figure {
+    margin: 0;
+  }
+
   .home-hero-image img {
     width: 100%;
     height: 100%;
@@ -197,6 +201,170 @@
     width: 100%;
     height: 220px;
     object-fit: cover;
+  }
+
+  .home-photo--overview {
+    padding: 0.5rem;
+  }
+
+  .home-overview-stage {
+    position: relative;
+  }
+
+  .home-photo-img--overview {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .home-overview-video {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .home-overview-video.is-ready,
+  .home-overview-video.is-fallback,
+  .home-overview-video.is-playing,
+  .home-overview-panel-video.is-ready,
+  .home-overview-panel-video.is-fallback,
+  .home-overview-panel-video.is-playing {
+    opacity: 1;
+  }
+
+  .home-overview-video.is-fallback,
+  .home-overview-panel-video.is-fallback {
+    background-color: rgba(4, 22, 45, 0.16);
+  }
+
+  .home-overview-video--rov {
+    left: 27.23%;
+    top: 25.14%;
+    width: 17.58%;
+    height: 19.79%;
+  }
+
+  .home-overview-video--uav-bottom-left {
+    left: 51.02%;
+    top: 77.64%;
+    width: 14.14%;
+    height: 17.36%;
+  }
+
+  .home-overview-video--uav-bottom-mid {
+    left: 65.27%;
+    top: 77.64%;
+    width: 14.14%;
+    height: 17.36%;
+  }
+
+  .home-overview-video--uav-bottom-right {
+    left: 79.53%;
+    top: 77.64%;
+    width: 14.18%;
+    height: 17.36%;
+  }
+
+  .home-overview-panel {
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .home-overview-panel-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .home-overview-panel--cable-inspection {
+    left: 27.23%;
+    top: 49.55%;
+    width: 17.58%;
+    height: 34.05%;
+    background: transparent;
+    z-index: 1;
+  }
+
+  .home-overview-panel-media--cable-inspection {
+    top: 10%;
+    right: 0;
+    bottom: 6%;
+    left: 0;
+  }
+
+  .home-overview-panel--wetplug {
+    left: 9.3%;
+    top: 50.5%;
+    width: 16.6%;
+    height: 33.7%;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .home-overview-panel--auv-guide {
+    left: 78.95%;
+    top: 26.18%;
+    width: 17.77%;
+    height: 36.25%;
+    z-index: 1;
+  }
+
+  .home-overview-panel-video {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    border: 0;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .home-overview-panel-video--top {
+    top: 0;
+    height: 50%;
+    object-position: center top;
+  }
+
+  .home-overview-panel-video--bottom {
+    top: 50%;
+    height: 50%;
+    object-position: center bottom;
+  }
+
+  .home-overview-panel--auv-guide .home-overview-panel-video--top {
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .home-overview-panel--auv-guide .home-overview-panel-video--bottom {
+    object-fit: cover;
+    object-position: center bottom;
   }
 
   .home-cta {

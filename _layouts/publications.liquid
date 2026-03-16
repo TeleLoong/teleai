@@ -2,6 +2,32 @@
 layout: default
 ---
 
+{% assign projects_sorted = site.projects | sort: "importance" %}
+{% assign external_media = site.data.external_media %}
+{% assign publication_video_left = external_media.publication_videos.left %}
+{% assign publication_video_right = external_media.publication_videos.right %}
+{% assign publication_video_left_src = publication_video_left.playback %}
+{% assign publication_video_right_src = publication_video_right.playback %}
+{% assign publication_video_right_poster = publication_video_right.poster %}
+
+{% if publication_video_left_src contains "://" %}
+  {% assign publication_video_left_url = publication_video_left_src %}
+{% else %}
+  {% assign publication_video_left_url = publication_video_left_src | bust_file_cache | relative_url %}
+{% endif %}
+
+{% if publication_video_right_src contains "://" %}
+  {% assign publication_video_right_url = publication_video_right_src %}
+{% else %}
+  {% assign publication_video_right_url = publication_video_right_src | bust_file_cache | relative_url %}
+{% endif %}
+
+{% if publication_video_right_poster contains "://" %}
+  {% assign publication_video_right_poster_url = publication_video_right_poster %}
+{% else %}
+  {% assign publication_video_right_poster_url = publication_video_right_poster | bust_file_cache | relative_url %}
+{% endif %}
+
 <div class="post publications-page">
   {% unless page.hide_page_header %}
     <header class="post-header">
@@ -15,69 +41,113 @@ layout: default
       {{ content }}
     {% endif %}
 
-    <div class="publications-category-bar" aria-label="成果分类">
-      <span class="publications-category-chip">论文</span>
-      <span class="publications-category-separator" aria-hidden="true">/</span>
-      <span class="publications-category-chip">专利</span>
-      <span class="publications-category-separator" aria-hidden="true">/</span>
-      <span class="publications-category-chip">视频展示</span>
-      <span class="publications-category-separator" aria-hidden="true">/</span>
-      <span class="publications-category-chip">项目</span>
-    </div>
+    <section class="publications-section publications-section--videos" aria-labelledby="publications-videos-title">
+      <h2 class="publications-section-title" id="publications-videos-title">视频展示</h2>
+      <div class="publications-section-panel">
+        <div class="publications-video-grid" aria-label="研究成果视频展示">
+          <div class="publications-video-card">
+            <div class="publications-video-media">
+              <video class="publications-video-player" controls preload="metadata" playsinline>
+                <source src="{{ publication_video_left_url }}" type="video/mp4">
+                您的浏览器暂不支持视频播放，请升级浏览器后重试。
+              </video>
+            </div>
+            <p class="publications-video-card-description">该视频展示了团队在空海跨域具身智能方向的系统演示，体现了平台在复杂环境感知、跨域协同与自主作业方面的能力。</p>
+          </div>
 
-    {% assign grouped_publications = page.manual_publications | group_by: "year" | sort: "name" | reverse %}
-    {% if grouped_publications and grouped_publications.size > 0 %}
-      <div class="publications publications--list publications--manual">
-        <div class="manual-publications">
-          {% for year_group in grouped_publications %}
-            {% unless forloop.first %}
-              <div class="year-divider" aria-hidden="true"></div>
-            {% endunless %}
-            {% for pub in year_group.items %}
-              <article class="publication-entry">
-                {% if forloop.first %}
-                  <div class="entry-year-badge">{{ year_group.name }}</div>
-                {% endif %}
-
-                <div class="publication-row">
-                  {% assign image_value = pub.image | to_s | strip %}
-                  {% if image_value != "" %}
-                    <div class="publication-image">
-                      <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
-                    </div>
-                  {% endif %}
-
-                  <div class="publication-body">
-                    <h3 class="title">{{ pub.title }}</h3>
-
-                    {% assign authors_value = pub.authors | to_s | strip %}
-                    {% if authors_value != "" %}
-                      <div class="author">{{ authors_value }}</div>
-                    {% endif %}
-
-                    {% assign venue_value = pub.venue | to_s | strip %}
-                    {% if venue_value != "" %}
-                      <div class="periodical"><em>{{ venue_value }}</em></div>
-                    {% endif %}
-
-                    {% assign doi_value = pub.doi | to_s | strip %}
-                    {% if doi_value != "" %}
-                      {% assign doi_href = doi_value %}
-                      {% unless doi_href contains "://" %}
-                        {% assign doi_href = "https://doi.org/" | append: doi_href %}
-                      {% endunless %}
-                      <div class="pub-doi">
-                        <span class="pub-doi-icon">doi</span>
-                        <a href="{{ doi_href }}" target="_blank" rel="noopener noreferrer">{{ doi_value }}</a>
-                      </div>
-                    {% endif %}
-                  </div>
-                </div>
-              </article>
-            {% endfor %}
-          {% endfor %}
+          <div class="publications-video-card">
+            <div class="publications-video-media">
+              <video class="publications-video-player" controls preload="metadata" playsinline poster="{{ publication_video_right_poster_url }}">
+                <source src="{{ publication_video_right_url }}" type="video/mp4">
+                您的浏览器暂不支持视频播放，请升级浏览器后重试。
+              </video>
+            </div>
+            <p class="publications-video-card-description">该视频展示了深海相机与机械臂协同作业的实验 demo，呈现了水下视觉感知、目标交互与精细操作的整体流程。</p>
+          </div>
         </div>
       </div>
-    {% endif %}
+    </section>
+
+    <section class="publications-section publications-section--projects" aria-labelledby="publications-projects-title">
+      <h2 class="publications-section-title" id="publications-projects-title">项目</h2>
+      <div class="publications-section-panel">
+        {% if projects_sorted != blank %}
+          <div class="projects publications-projects">
+            <div class="row row-cols-1 row-cols-md-3">
+              {% for project in projects_sorted %}
+                {% include projects.liquid %}
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <p class="publications-section-empty">暂无项目内容。</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="publications-section publications-section--papers" aria-labelledby="publications-papers-title">
+      <div class="publications-category-bar" id="publications-papers-title" aria-label="成果分类">
+        <span class="publications-category-chip">论文</span>
+        <span class="publications-category-separator" aria-hidden="true">/</span>
+        <span class="publications-category-chip">专利</span>
+      </div>
+
+      <div class="publications-section-panel">
+        {% assign grouped_publications = page.manual_publications | group_by: "year" | sort: "name" | reverse %}
+        {% if grouped_publications and grouped_publications.size > 0 %}
+          <div class="publications publications--list publications--manual">
+            <div class="manual-publications">
+              {% for year_group in grouped_publications %}
+                {% unless forloop.first %}
+                  <div class="year-divider" aria-hidden="true"></div>
+                {% endunless %}
+                {% for pub in year_group.items %}
+                  <article class="publication-entry">
+                    {% if forloop.first %}
+                      <div class="entry-year-badge">{{ year_group.name }}</div>
+                    {% endif %}
+
+                    <div class="publication-row">
+                      {% assign image_value = pub.image | to_s | strip %}
+                      {% if image_value != "" %}
+                        <div class="publication-image">
+                          <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
+                        </div>
+                      {% endif %}
+
+                      <div class="publication-body">
+                        <h3 class="title">{{ pub.title }}</h3>
+
+                        {% assign authors_value = pub.authors | to_s | strip %}
+                        {% if authors_value != "" %}
+                          <div class="author">{{ authors_value }}</div>
+                        {% endif %}
+
+                        {% assign venue_value = pub.venue | to_s | strip %}
+                        {% if venue_value != "" %}
+                          <div class="periodical"><em>{{ venue_value }}</em></div>
+                        {% endif %}
+
+                        {% assign doi_value = pub.doi | to_s | strip %}
+                        {% if doi_value != "" %}
+                          {% assign doi_href = doi_value %}
+                          {% unless doi_href contains "://" %}
+                            {% assign doi_href = "https://doi.org/" | append: doi_href %}
+                          {% endunless %}
+                          <div class="pub-doi">
+                            <span class="pub-doi-icon">doi</span>
+                            <a href="{{ doi_href }}" target="_blank" rel="noopener noreferrer">{{ doi_value }}</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </article>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </section>
   </article>
 </div>

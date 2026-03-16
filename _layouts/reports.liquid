@@ -5,6 +5,7 @@ layout: default
 {% assign reports = page.reports | default: empty %}
 {% assign show_download_link = reports.show_download_link | default: true %}
 {% assign report_player_build = "reports-20260312-3" %}
+{% assign external_report_videos = site.data.external_media.report_videos | default: empty %}
 
 {% assign report_files = site.static_files | where_exp: "f", "f.path contains '/assets/reports/'" %}
 {% assign report_video_files = report_files | where_exp: "f", "f.extname == '.mp4'" %}
@@ -31,8 +32,6 @@ layout: default
     {% continue %}
   {% endunless %}
 
-  {% assign clean_title = raw_title | replace: "_", " " | replace: "-", " " | strip %}
-  {% assign clean_title = clean_title | replace: "  ", " " | replace: "  ", " " %}
   {% assign slug = raw_title | slugify %}
   {% assign tokens = slug | split: "-" %}
 
@@ -88,16 +87,62 @@ layout: default
     {% assign sort_prefix = "1_" %}
   {% endif %}
 
+  {% assign clean_title = raw_title %}
+  {% if date_key != "" %}
+    {% assign clean_title = clean_title | replace: date_key, " " %}
+  {% endif %}
+  {% assign clean_title = clean_title | replace: "_", " " | replace: "-", " " | strip %}
+  {% assign clean_title = clean_title | replace: "  ", " " | replace: "  ", " " | strip %}
+
   {% assign sort_name = clean_title | downcase %}
   {% capture record_line -%}
-{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>{{ f.path }}<::>{{ clean_title }}<::>{{ date_label }}
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>local<::>{{ clean_title }}<::>{{ date_label }}<::>{{ f.path }}<::>{{ f.path }}<::>
 {%- endcapture %}
 
   {% if is_video %}
+    {% assign poster_ref = "" %}
+    {% assign poster_candidate = f.path | replace: ".mp4", "__poster.jpg" %}
+    {% assign poster_file = report_files | where: "path", poster_candidate | first %}
+    {% if poster_file %}
+      {% capture record_line -%}
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>local<::>{{ clean_title }}<::>{{ date_label }}<::>{{ f.path }}<::>{{ f.path }}<::>{{ poster_candidate }}
+{%- endcapture %}
+    {% endif %}
     {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
   {% elsif is_image %}
     {% capture news_records_blob %}{{ news_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
   {% endif %}
+{% endfor %}
+
+{% for item in external_report_videos %}
+  {% assign title = item.title | to_s | strip %}
+  {% assign playback_ref = item.playback | to_s | strip %}
+  {% assign original_ref = item.original | default: item.playback | to_s | strip %}
+  {% assign poster_ref = item.poster | to_s | strip %}
+  {% assign date_label = item.date | default: "未标注日期" | to_s | strip %}
+
+  {% if title == "" or playback_ref == "" %}
+    {% continue %}
+  {% endif %}
+
+  {% assign date_key = date_label | replace: "-", "" %}
+  {% assign clean_title = title %}
+  {% assign sort_name = clean_title | downcase %}
+  {% assign sort_prefix = "1_" %}
+  {% assign date_inv_key = "99999999" %}
+
+  {% if date_key != "" and date_key != "未标注日期" %}
+    {% assign date_num = date_key | plus: 0 %}
+    {% assign date_inv = 99999999 | minus: date_num %}
+    {% capture date_inv_padded %}00000000{{ date_inv }}{% endcapture %}
+    {% assign date_inv_key = date_inv_padded | slice: -8, 8 %}
+    {% assign sort_prefix = "0_" %}
+  {% endif %}
+
+  {% capture record_line -%}
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>external<::>{{ clean_title }}<::>{{ date_label }}<::>{{ playback_ref }}<::>{{ original_ref }}<::>{{ poster_ref }}
+{%- endcapture %}
+  {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
 {% endfor %}
 
 {% assign video_records = video_records_blob | split: "<:ROW:>" | sort_natural %}
@@ -130,34 +175,46 @@ layout: default
                 {% continue %}
               {% endif %}
               {% assign fields = row | split: "<::>" %}
-              {% assign file_path = fields[1] %}
+              {% assign source_kind = fields[1] %}
               {% assign title = fields[2] %}
               {% assign date_label = fields[3] %}
+              {% assign playback_ref = fields[4] %}
+              {% assign original_ref = fields[5] %}
+              {% assign poster_ref = fields[6] %}
               {% assign report_id = "report-video-" | append: forloop.index0 %}
-              {% assign playback_path = file_path %}
-              {% assign original_path = file_path %}
-              {% assign poster_path = file_path | replace: ".mp4", "__poster.jpg" %}
-              {% assign poster_file = report_files | where: "path", poster_path | first %}
-              {% assign original_busted_url = original_path | bust_file_cache | relative_url %}
-              {% assign original_busted_parts = original_busted_url | split: "?" %}
-              {% assign original_url = original_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-              {% if original_busted_parts.size > 1 %}
-                {% assign original_url = original_url | append: "?" | append: original_busted_parts[1] %}
-              {% endif %}
-              {% assign playback_busted_url = playback_path | bust_file_cache | relative_url %}
-              {% assign playback_busted_parts = playback_busted_url | split: "?" %}
-              {% assign playback_url = playback_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-              {% if playback_busted_parts.size > 1 %}
-                {% assign playback_url = playback_url | append: "?" | append: playback_busted_parts[1] %}
-              {% endif %}
-              {% assign original_link_url = original_path | relative_url | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-              {% if poster_file %}
-                {% assign poster_busted_url = poster_path | bust_file_cache | relative_url %}
-                {% assign poster_busted_parts = poster_busted_url | split: "?" %}
-                {% assign poster_url = poster_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
-                {% if poster_busted_parts.size > 1 %}
-                  {% assign poster_url = poster_url | append: "?" | append: poster_busted_parts[1] %}
+              {% assign playback_url = playback_ref %}
+              {% assign original_url = original_ref %}
+              {% assign original_link_url = original_ref %}
+              {% assign poster_url = poster_ref %}
+
+              {% unless playback_ref contains "://" %}
+                {% assign playback_busted_url = playback_ref | bust_file_cache | relative_url %}
+                {% assign playback_busted_parts = playback_busted_url | split: "?" %}
+                {% assign playback_url = playback_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                {% if playback_busted_parts.size > 1 %}
+                  {% assign playback_url = playback_url | append: "?" | append: playback_busted_parts[1] %}
                 {% endif %}
+              {% endunless %}
+
+              {% unless original_ref contains "://" %}
+                {% assign original_busted_url = original_ref | bust_file_cache | relative_url %}
+                {% assign original_busted_parts = original_busted_url | split: "?" %}
+                {% assign original_url = original_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                {% if original_busted_parts.size > 1 %}
+                  {% assign original_url = original_url | append: "?" | append: original_busted_parts[1] %}
+                {% endif %}
+                {% assign original_link_url = original_ref | relative_url | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+              {% endunless %}
+
+              {% if poster_ref != "" %}
+                {% unless poster_ref contains "://" %}
+                  {% assign poster_busted_url = poster_ref | bust_file_cache | relative_url %}
+                  {% assign poster_busted_parts = poster_busted_url | split: "?" %}
+                  {% assign poster_url = poster_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                  {% if poster_busted_parts.size > 1 %}
+                    {% assign poster_url = poster_url | append: "?" | append: poster_busted_parts[1] %}
+                  {% endif %}
+                {% endunless %}
               {% endif %}
 
               <article class="report-item">
@@ -174,10 +231,10 @@ layout: default
                       data-report-video
                       data-report-id="{{ report_id }}"
                       data-report-template-build="{{ report_player_build }}"
-                      data-report-has-cache-bust="true"
+                      data-report-has-cache-bust="{% if source_kind == 'local' %}true{% else %}false{% endif %}"
                       data-original-src="{{ original_url }}"
                       data-playback-src="{{ playback_url }}"
-                      {% if poster_file %}
+                      {% if poster_ref != "" %}
                         poster="{{ poster_url }}"
                       {% endif %}
                     >
@@ -247,9 +304,14 @@ layout: default
                 {% continue %}
               {% endif %}
               {% assign fields = row | split: "<::>" %}
-              {% assign file_path = fields[1] %}
-              {% assign title = fields[2] %}
-              {% assign date_label = fields[3] %}
+              {% assign file_path = fields[4] | default: fields[1] %}
+              {% assign title = fields[2] | default: fields[1] %}
+              {% assign date_label = fields[3] | default: fields[2] %}
+              {% assign card_title = title %}
+              {% if date_label != "未标注日期" %}
+                {% assign card_date = date_label | replace: "-", "." %}
+                {% assign card_title = card_date | append: " " | append: title %}
+              {% endif %}
               {% assign preview_url = file_path | relative_url | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
               {% assign original_link_url = preview_url %}
               {% assign news_toggle_id = "report-news-toggle-" | append: forloop.index0 %}
@@ -271,10 +333,7 @@ layout: default
                   </span>
                   <span class="report-news-meta">
                     <span class="report-tag report-tag--news">新闻报道</span>
-                    <span class="report-news-title">{{ title }}</span>
-                    {% if date_label != "未标注日期" %}
-                      <span class="report-news-date">{{ date_label }}</span>
-                    {% endif %}
+                    <span class="report-news-title">{{ card_title }}</span>
                   </span>
                 </button>
               </article>
