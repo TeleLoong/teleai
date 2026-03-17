@@ -29,6 +29,7 @@ This guide covers common issues and their solutions. For more information, see [
     - [Comments (Giscus) not appearing](#comments-giscus-not-appearing)
     - [Related posts broken](#related-posts-broken)
     - [Code formatting issues](#code-formatting-issues)
+    - [Reports video seek issues (black screen / disappears after dragging)](#reports-video-seek-issues-black-screen--disappears-after-dragging)
   - [Getting Help](#getting-help)
 
 <!--te-->
