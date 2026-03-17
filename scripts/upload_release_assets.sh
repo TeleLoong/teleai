@@ -93,8 +93,10 @@ fi
 
 declare -a asset_map=(
   "assets/publication/空海跨域具身智能体-0309-小.mp4|publication-air-sea-cross-domain-agent-0309-small.mp4"
+  "assets/publication/空海跨域具身智能体-0309-小-web.mp4|publication-air-sea-cross-domain-agent-0309-small-web.mp4"
   "assets/publication/深海相机+机械臂demo20260211.mp4|publication-underwater-camera-arm-demo-20260211.mp4"
   "assets/publication/深海相机+机械臂demo20260211.mov|publication-underwater-camera-arm-demo-20260211.mov"
+  "assets/publication/深海相机+机械臂demo20260211-web.mp4|publication-underwater-camera-arm-demo-20260211-web.mp4"
   "assets/reports/cctv_走遍中国720P-20240606.mp4|report-cctv-zoubianzhongguo-20240606.mp4"
   "assets/reports/cctv_走遍中国720P-20240606__low.mp4|report-cctv-zoubianzhongguo-20240606-low.mp4"
   "assets/reports/《解码科技史》 20240413 读懂你的脑电波.mp4|report-decode-tech-history-20240413.mp4"
@@ -108,9 +110,14 @@ for mapping in "${asset_map[@]}"; do
   local_path="${mapping%%|*}"
   asset_name="${mapping##*|}"
   staged_path="$ASSET_DIR/$local_path"
+  source_path="$staged_path"
 
-  if [[ ! -f "$staged_path" ]]; then
-    echo "ERROR: staged asset not found: $staged_path" >&2
+  if [[ ! -f "$source_path" ]]; then
+    source_path="$local_path"
+  fi
+
+  if [[ ! -f "$source_path" ]]; then
+    echo "ERROR: asset not found in staging or workspace: $local_path" >&2
     exit 1
   fi
 
@@ -120,7 +127,7 @@ for mapping in "${asset_map[@]}"; do
   fi
 
   echo "Uploading $asset_name"
-  upload_asset "$release_id" "$staged_path" "$asset_name"
+  upload_asset "$release_id" "$source_path" "$asset_name"
 done
 
 echo "Release assets uploaded to tag $TAG."

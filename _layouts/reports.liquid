@@ -1,30 +1,31 @@
 ---
 layout: default
 ---
-
 {% assign reports = page.reports | default: empty %}
 {% assign show_download_link = reports.show_download_link | default: true %}
-{% assign report_player_build = "reports-20260312-3" %}
+{% assign report_player_build = 'reports-20260317-2' %}
 {% assign external_report_videos = site.data.external_media.report_videos | default: empty %}
 
-{% assign report_files = site.static_files | where_exp: "f", "f.path contains '/assets/reports/'" %}
-{% assign report_video_files = report_files | where_exp: "f", "f.extname == '.mp4'" %}
-{% assign video_records_blob = "" %}
-{% assign news_records_blob = "" %}
+{% assign report_files = site.static_files | where_exp: 'f', "f.path contains '/assets/reports/'" %}
+{% assign report_video_files = report_files | where_exp: 'f', "f.extname == '.mp4'" %}
+{% assign video_records_blob = '' %}
+{% assign news_records_blob = '' %}
+{% assign report_field_sep = '||FIELD||' %}
+{% assign report_row_sep = '||ROW||' %}
 
 {% for f in report_files %}
   {% assign ext = f.extname | downcase %}
   {% assign raw_title = f.basename | default: f.name %}
 
-  {% if raw_title contains "__poster" or raw_title contains "__low" or raw_title contains "~$" %}
+  {% if raw_title contains '__poster' or raw_title contains '__low' or raw_title contains '~$' %}
     {% continue %}
   {% endif %}
 
   {% assign is_video = false %}
   {% assign is_image = false %}
-  {% if ext == ".mp4" %}
+  {% if ext == '.mp4' %}
     {% assign is_video = true %}
-  {% elsif ext == ".png" or ext == ".jpg" or ext == ".jpeg" or ext == ".webp" %}
+  {% elsif ext == '.png' or ext == '.jpg' or ext == '.jpeg' or ext == '.webp' %}
     {% assign is_image = true %}
   {% endif %}
 
@@ -33,84 +34,117 @@ layout: default
   {% endunless %}
 
   {% assign slug = raw_title | slugify %}
-  {% assign tokens = slug | split: "-" %}
+  {% assign tokens = slug | split: '-' %}
 
-  {% assign date_key = "" %}
-  {% assign date_label = "未标注日期" %}
+  {% assign date_key = '' %}
+  {% assign date_label = '未标注日期' %}
 
   {% for token in tokens %}
-    {% if date_key != "" %}
+    {% if date_key != '' %}
       {% continue %}
     {% endif %}
 
     {% assign token_size = token | size %}
     {% assign year_prefix = token | slice: 0, 2 %}
 
-    {% if token_size == 8 and year_prefix == "20" %}
-      {% assign nondigit = token | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" %}
-      {% if nondigit == "" %}
+    {% if token_size == 8 and year_prefix == '20' %}
+      {% assign nondigit = token
+        | remove: '0'
+        | remove: '1'
+        | remove: '2'
+        | remove: '3'
+        | remove: '4'
+        | remove: '5'
+        | remove: '6'
+        | remove: '7'
+        | remove: '8'
+        | remove: '9'
+      %}
+      {% if nondigit == '' %}
         {% assign date_key = token %}
       {% endif %}
-    {% elsif token_size > 8 and year_prefix == "20" %}
+    {% elsif token_size > 8 and year_prefix == '20' %}
       {% assign candidate = token | slice: 0, 8 %}
-      {% assign nondigit = candidate | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" %}
-      {% if nondigit == "" %}
+      {% assign nondigit = candidate
+        | remove: '0'
+        | remove: '1'
+        | remove: '2'
+        | remove: '3'
+        | remove: '4'
+        | remove: '5'
+        | remove: '6'
+        | remove: '7'
+        | remove: '8'
+        | remove: '9'
+      %}
+      {% if nondigit == '' %}
         {% assign date_key = candidate %}
       {% endif %}
-    {% elsif token_size == 4 and year_prefix == "20" %}
+    {% elsif token_size == 4 and year_prefix == '20' %}
       {% assign next_index = forloop.index %}
       {% assign next2_index = forloop.index | plus: 1 %}
       {% assign month_token = tokens[next_index] %}
       {% assign day_token = tokens[next2_index] %}
       {% if month_token and day_token and month_token.size == 2 and day_token.size == 2 %}
         {% assign candidate = token | append: month_token | append: day_token %}
-        {% assign nondigit = candidate | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" %}
-        {% if nondigit == "" %}
+        {% assign nondigit = candidate
+          | remove: '0'
+          | remove: '1'
+          | remove: '2'
+          | remove: '3'
+          | remove: '4'
+          | remove: '5'
+          | remove: '6'
+          | remove: '7'
+          | remove: '8'
+          | remove: '9'
+        %}
+        {% if nondigit == '' %}
           {% assign date_key = candidate %}
         {% endif %}
       {% endif %}
     {% endif %}
   {% endfor %}
 
-  {% if date_key != "" %}
+  {% if date_key != '' %}
     {% assign yyyy = date_key | slice: 0, 4 %}
     {% assign mm = date_key | slice: 4, 2 %}
     {% assign dd = date_key | slice: 6, 2 %}
-    {% assign date_label = yyyy | append: "-" | append: mm | append: "-" | append: dd %}
+    {% assign date_label = yyyy | append: '-' | append: mm | append: '-' | append: dd %}
     {% assign date_num = date_key | plus: 0 %}
     {% assign date_inv = 99999999 | minus: date_num %}
     {% capture date_inv_padded %}00000000{{ date_inv }}{% endcapture %}
     {% assign date_inv_key = date_inv_padded | slice: -8, 8 %}
-    {% assign sort_prefix = "0_" %}
+    {% assign sort_prefix = '0_' %}
   {% else %}
-    {% assign date_inv_key = "99999999" %}
-    {% assign sort_prefix = "1_" %}
+    {% assign date_inv_key = '99999999' %}
+    {% assign sort_prefix = '1_' %}
   {% endif %}
 
   {% assign clean_title = raw_title %}
-  {% if date_key != "" %}
-    {% assign clean_title = clean_title | replace: date_key, " " %}
+  {% if date_key != '' %}
+    {% assign clean_title = clean_title | replace: date_key, ' ' %}
   {% endif %}
-  {% assign clean_title = clean_title | replace: "_", " " | replace: "-", " " | strip %}
-  {% assign clean_title = clean_title | replace: "  ", " " | replace: "  ", " " | strip %}
+  {% assign clean_title = clean_title | replace: '_', ' ' | replace: '-', ' ' | strip %}
+  {% assign clean_title = clean_title | replace: '  ', ' ' | replace: '  ', ' ' | strip %}
 
   {% assign sort_name = clean_title | downcase %}
   {% capture record_line -%}
-{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>local<::>{{ clean_title }}<::>{{ date_label }}<::>{{ f.path }}<::>{{ f.path }}<::>
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}{{ report_field_sep }}local{{ report_field_sep }}{{ clean_title }}{{ report_field_sep }}{{ date_label }}{{ report_field_sep }}{{ f.path }}{{ report_field_sep }}{{ f.path }}{{ report_field_sep }}
 {%- endcapture %}
 
   {% if is_video %}
-    {% assign poster_ref = "" %}
-    {% assign poster_candidate = f.path | replace: ".mp4", "__poster.jpg" %}
-    {% assign poster_file = report_files | where: "path", poster_candidate | first %}
+    {% assign poster_ref = '' %}
+    {% assign poster_candidate = f.path | replace: '.mp4', '__poster.jpg' %}
+    {% assign poster_file = report_files | where: 'path', poster_candidate | first %}
     {% if poster_file %}
       {% capture record_line -%}
-{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>local<::>{{ clean_title }}<::>{{ date_label }}<::>{{ f.path }}<::>{{ f.path }}<::>{{ poster_candidate }}
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}{{ report_field_sep }}local{{ report_field_sep }}{{ clean_title }}{{ report_field_sep }}{{ date_label }}{{ report_field_sep }}{{ f.path }}{{ report_field_sep }}{{ f.path }}{{ report_field_sep }}{{ poster_candidate }}
 {%- endcapture %}
     {% endif %}
-    {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
+    {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}{{ report_row_sep }}{% endcapture %}
   {% elsif is_image %}
-    {% capture news_records_blob %}{{ news_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
+    {% capture news_records_blob %}{{ news_records_blob }}{{ record_line }}{{ report_row_sep }}{% endcapture %}
   {% endif %}
 {% endfor %}
 
@@ -119,34 +153,34 @@ layout: default
   {% assign playback_ref = item.playback | to_s | strip %}
   {% assign original_ref = item.original | default: item.playback | to_s | strip %}
   {% assign poster_ref = item.poster | to_s | strip %}
-  {% assign date_label = item.date | default: "未标注日期" | to_s | strip %}
+  {% assign date_label = item.date | default: '未标注日期' | to_s | strip %}
 
-  {% if title == "" or playback_ref == "" %}
+  {% if title == '' or playback_ref == '' %}
     {% continue %}
   {% endif %}
 
-  {% assign date_key = date_label | replace: "-", "" %}
+  {% assign date_key = date_label | replace: '-', '' %}
   {% assign clean_title = title %}
   {% assign sort_name = clean_title | downcase %}
-  {% assign sort_prefix = "1_" %}
-  {% assign date_inv_key = "99999999" %}
+  {% assign sort_prefix = '1_' %}
+  {% assign date_inv_key = '99999999' %}
 
-  {% if date_key != "" and date_key != "未标注日期" %}
+  {% if date_key != '' and date_key != '未标注日期' %}
     {% assign date_num = date_key | plus: 0 %}
     {% assign date_inv = 99999999 | minus: date_num %}
     {% capture date_inv_padded %}00000000{{ date_inv }}{% endcapture %}
     {% assign date_inv_key = date_inv_padded | slice: -8, 8 %}
-    {% assign sort_prefix = "0_" %}
+    {% assign sort_prefix = '0_' %}
   {% endif %}
 
   {% capture record_line -%}
-{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}<::>external<::>{{ clean_title }}<::>{{ date_label }}<::>{{ playback_ref }}<::>{{ original_ref }}<::>{{ poster_ref }}
+{{ sort_prefix }}{{ date_inv_key }}_{{ sort_name }}{{ report_field_sep }}external{{ report_field_sep }}{{ clean_title }}{{ report_field_sep }}{{ date_label }}{{ report_field_sep }}{{ playback_ref }}{{ report_field_sep }}{{ original_ref }}{{ report_field_sep }}{{ poster_ref }}
 {%- endcapture %}
-  {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}<:ROW:>{% endcapture %}
+  {% capture video_records_blob %}{{ video_records_blob }}{{ record_line }}{{ report_row_sep }}{% endcapture %}
 {% endfor %}
 
-{% assign video_records = video_records_blob | split: "<:ROW:>" | sort_natural %}
-{% assign news_records = news_records_blob | split: "<:ROW:>" | sort_natural %}
+{% assign video_records = video_records_blob | split: report_row_sep | sort_natural %}
+{% assign news_records = news_records_blob | split: report_row_sep | sort_natural %}
 
 <div class="post reports-page">
   {% unless page.hide_page_header %}
@@ -162,7 +196,7 @@ layout: default
         <p class="reports-intro">{{ reports.intro }}</p>
       {% endif %}
 
-      {% if video_records_blob != "" %}
+      {% if video_records_blob != '' %}
         <section class="reports-section reports-section--videos" aria-labelledby="reports-videos-title">
           <div class="reports-section-heading">
             <h2 class="reports-section-title" id="reports-videos-title">视频报道</h2>
@@ -171,48 +205,54 @@ layout: default
 
           <div class="reports-timeline" aria-label="视频报道时间轴">
             {% for row in video_records %}
-              {% if row == "" %}
+              {% if row == '' %}
                 {% continue %}
               {% endif %}
-              {% assign fields = row | split: "<::>" %}
+              {% assign fields = row | split: report_field_sep %}
               {% assign source_kind = fields[1] %}
               {% assign title = fields[2] %}
               {% assign date_label = fields[3] %}
               {% assign playback_ref = fields[4] %}
               {% assign original_ref = fields[5] %}
-              {% assign poster_ref = fields[6] %}
-              {% assign report_id = "report-video-" | append: forloop.index0 %}
+              {% assign poster_ref = fields[6] | default: '' %}
+              {% assign report_id = 'report-video-' | append: forloop.index0 %}
               {% assign playback_url = playback_ref %}
               {% assign original_url = original_ref %}
               {% assign original_link_url = original_ref %}
               {% assign poster_url = poster_ref %}
 
-              {% unless playback_ref contains "://" %}
+              {% unless playback_ref contains '://' %}
                 {% assign playback_busted_url = playback_ref | bust_file_cache | relative_url %}
-                {% assign playback_busted_parts = playback_busted_url | split: "?" %}
-                {% assign playback_url = playback_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                {% assign playback_busted_parts = playback_busted_url | split: '?' %}
+                {% assign playback_url = playback_busted_parts[0] | uri_escape | replace: '+', '%2B' | replace: '(', '%28' | replace: ')', '%29' %}
                 {% if playback_busted_parts.size > 1 %}
-                  {% assign playback_url = playback_url | append: "?" | append: playback_busted_parts[1] %}
+                  {% assign playback_url = playback_url | append: '?' | append: playback_busted_parts[1] %}
                 {% endif %}
               {% endunless %}
 
-              {% unless original_ref contains "://" %}
+              {% unless original_ref contains '://' %}
                 {% assign original_busted_url = original_ref | bust_file_cache | relative_url %}
-                {% assign original_busted_parts = original_busted_url | split: "?" %}
-                {% assign original_url = original_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                {% assign original_busted_parts = original_busted_url | split: '?' %}
+                {% assign original_url = original_busted_parts[0] | uri_escape | replace: '+', '%2B' | replace: '(', '%28' | replace: ')', '%29' %}
                 {% if original_busted_parts.size > 1 %}
-                  {% assign original_url = original_url | append: "?" | append: original_busted_parts[1] %}
+                  {% assign original_url = original_url | append: '?' | append: original_busted_parts[1] %}
                 {% endif %}
-                {% assign original_link_url = original_ref | relative_url | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                {% assign original_link_url = original_ref
+                  | relative_url
+                  | uri_escape
+                  | replace: '+', '%2B'
+                  | replace: '(', '%28'
+                  | replace: ')', '%29'
+                %}
               {% endunless %}
 
-              {% if poster_ref != "" %}
-                {% unless poster_ref contains "://" %}
+              {% if poster_ref != blank %}
+                {% unless poster_ref contains '://' %}
                   {% assign poster_busted_url = poster_ref | bust_file_cache | relative_url %}
-                  {% assign poster_busted_parts = poster_busted_url | split: "?" %}
-                  {% assign poster_url = poster_busted_parts[0] | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+                  {% assign poster_busted_parts = poster_busted_url | split: '?' %}
+                  {% assign poster_url = poster_busted_parts[0] | uri_escape | replace: '+', '%2B' | replace: '(', '%28' | replace: ')', '%29' %}
                   {% if poster_busted_parts.size > 1 %}
-                    {% assign poster_url = poster_url | append: "?" | append: poster_busted_parts[1] %}
+                    {% assign poster_url = poster_url | append: '?' | append: poster_busted_parts[1] %}
                   {% endif %}
                 {% endunless %}
               {% endif %}
@@ -234,7 +274,7 @@ layout: default
                       data-report-has-cache-bust="{% if source_kind == 'local' %}true{% else %}false{% endif %}"
                       data-original-src="{{ original_url }}"
                       data-playback-src="{{ playback_url }}"
-                      {% if poster_ref != "" %}
+                      {% if poster_ref != blank %}
                         poster="{{ poster_url }}"
                       {% endif %}
                     >
@@ -291,7 +331,7 @@ layout: default
         </section>
       {% endif %}
 
-      {% if news_records_blob != "" %}
+      {% if news_records_blob != '' %}
         <section class="reports-section reports-section--news" aria-labelledby="reports-news-title">
           <div class="reports-section-heading">
             <h2 class="reports-section-title" id="reports-news-title">新闻报道</h2>
@@ -300,21 +340,21 @@ layout: default
 
           <div class="reports-news-grid" aria-label="新闻报道卡片列表">
             {% for row in news_records %}
-              {% if row == "" %}
+              {% if row == '' %}
                 {% continue %}
               {% endif %}
-              {% assign fields = row | split: "<::>" %}
+              {% assign fields = row | split: report_field_sep %}
               {% assign file_path = fields[4] | default: fields[1] %}
               {% assign title = fields[2] | default: fields[1] %}
               {% assign date_label = fields[3] | default: fields[2] %}
               {% assign card_title = title %}
-              {% if date_label != "未标注日期" %}
-                {% assign card_date = date_label | replace: "-", "." %}
-                {% assign card_title = card_date | append: " " | append: title %}
+              {% if date_label != '未标注日期' %}
+                {% assign card_date = date_label | replace: '-', '.' %}
+                {% assign card_title = card_date | append: ' ' | append: title %}
               {% endif %}
-              {% assign preview_url = file_path | relative_url | uri_escape | replace: "+", "%2B" | replace: "(", "%28" | replace: ")", "%29" %}
+              {% assign preview_url = file_path | relative_url | uri_escape | replace: '+', '%2B' | replace: '(', '%28' | replace: ')', '%29' %}
               {% assign original_link_url = preview_url %}
-              {% assign news_toggle_id = "report-news-toggle-" | append: forloop.index0 %}
+              {% assign news_toggle_id = 'report-news-toggle-' | append: forloop.index0 %}
 
               <article class="report-news-card" data-report-news-card>
                 <button
@@ -342,10 +382,8 @@ layout: default
         </section>
       {% endif %}
 
-      {% if video_records_blob == "" and news_records_blob == "" %}
-        <div class="reports-empty">
-          暂无相关报道，后续将在这里持续更新。
-        </div>
+      {% if video_records_blob == '' and news_records_blob == '' %}
+        <div class="reports-empty">暂无相关报道，后续将在这里持续更新。</div>
       {% endif %}
 
       <div
@@ -368,7 +406,9 @@ layout: default
               <h3 class="reports-news-modal__title" id="report-news-modal-title" data-report-news-modal-title></h3>
               <p class="reports-news-modal__date" data-report-news-modal-date hidden></p>
               {% if show_download_link %}
-                <a class="report-link reports-news-modal__link" data-report-news-modal-link href="" target="_blank" rel="noopener noreferrer">查看完整图片</a>
+                <a class="report-link reports-news-modal__link" data-report-news-modal-link href="" target="_blank" rel="noopener noreferrer"
+                  >查看完整图片</a
+                >
               {% endif %}
             </div>
           </div>

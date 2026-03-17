@@ -33,3 +33,7 @@ assets/reports/*走遍中国*.mp4
 assets/reports/*解码科技史*.mp4
 assets/reports/*央视13新闻1+1报道*.mp4
 assets/reports/*澎湃中国*.mp4
+
+# Temporary ffmpeg two-pass encoding logs.
+ffmpeg2pass-*.log
+ffmpeg2pass-*.log.mbtree

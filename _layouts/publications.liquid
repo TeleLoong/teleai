@@ -1,31 +1,61 @@
 ---
 layout: default
 ---
-
-{% assign projects_sorted = site.projects | sort: "importance" %}
+{% assign projects_sorted = site.projects | sort: 'importance' %}
 {% assign external_media = site.data.external_media %}
 {% assign publication_video_left = external_media.publication_videos.left %}
 {% assign publication_video_right = external_media.publication_videos.right %}
-{% assign publication_video_left_src = publication_video_left.playback %}
-{% assign publication_video_right_src = publication_video_right.playback %}
+{% assign publication_video_left_mp4 = publication_video_left.mp4 | default: publication_video_left.playback %}
+{% assign publication_video_left_webm = publication_video_left.webm %}
+{% assign publication_video_right_mp4 = publication_video_right.mp4 | default: publication_video_right.playback %}
+{% assign publication_video_right_webm = publication_video_right.webm %}
+{% assign publication_video_left_poster = publication_video_left.poster %}
 {% assign publication_video_right_poster = publication_video_right.poster %}
+{% assign publication_video_left_preload = publication_video_left.preload | default: 'metadata' %}
+{% assign publication_video_right_preload = publication_video_right.preload | default: 'metadata' %}
 
-{% if publication_video_left_src contains "://" %}
-  {% assign publication_video_left_url = publication_video_left_src %}
+{% if publication_video_left_mp4 contains '://' %}
+  {% assign publication_video_left_mp4_url = publication_video_left_mp4 %}
 {% else %}
-  {% assign publication_video_left_url = publication_video_left_src | bust_file_cache | relative_url %}
+  {% assign publication_video_left_mp4_url = publication_video_left_mp4 | bust_file_cache | relative_url %}
 {% endif %}
 
-{% if publication_video_right_src contains "://" %}
-  {% assign publication_video_right_url = publication_video_right_src %}
-{% else %}
-  {% assign publication_video_right_url = publication_video_right_src | bust_file_cache | relative_url %}
+{% if publication_video_left_poster != blank %}
+  {% if publication_video_left_poster contains '://' %}
+    {% assign publication_video_left_poster_url = publication_video_left_poster %}
+  {% else %}
+    {% assign publication_video_left_poster_url = publication_video_left_poster | bust_file_cache | relative_url %}
+  {% endif %}
 {% endif %}
 
-{% if publication_video_right_poster contains "://" %}
-  {% assign publication_video_right_poster_url = publication_video_right_poster %}
+{% if publication_video_left_webm != blank %}
+  {% if publication_video_left_webm contains '://' %}
+    {% assign publication_video_left_webm_url = publication_video_left_webm %}
+  {% else %}
+    {% assign publication_video_left_webm_url = publication_video_left_webm | bust_file_cache | relative_url %}
+  {% endif %}
+{% endif %}
+
+{% if publication_video_right_mp4 contains '://' %}
+  {% assign publication_video_right_mp4_url = publication_video_right_mp4 %}
 {% else %}
-  {% assign publication_video_right_poster_url = publication_video_right_poster | bust_file_cache | relative_url %}
+  {% assign publication_video_right_mp4_url = publication_video_right_mp4 | bust_file_cache | relative_url %}
+{% endif %}
+
+{% if publication_video_right_poster != blank %}
+  {% if publication_video_right_poster contains '://' %}
+    {% assign publication_video_right_poster_url = publication_video_right_poster %}
+  {% else %}
+    {% assign publication_video_right_poster_url = publication_video_right_poster | bust_file_cache | relative_url %}
+  {% endif %}
+{% endif %}
+
+{% if publication_video_right_webm != blank %}
+  {% if publication_video_right_webm contains '://' %}
+    {% assign publication_video_right_webm_url = publication_video_right_webm %}
+  {% else %}
+    {% assign publication_video_right_webm_url = publication_video_right_webm | bust_file_cache | relative_url %}
+  {% endif %}
 {% endif %}
 
 <div class="post publications-page">
@@ -47,22 +77,50 @@ layout: default
         <div class="publications-video-grid" aria-label="研究成果视频展示">
           <div class="publications-video-card">
             <div class="publications-video-media">
-              <video class="publications-video-player" controls preload="metadata" playsinline>
-                <source src="{{ publication_video_left_url }}" type="video/mp4">
+              <video
+                class="publications-video-player"
+                controls
+                preload="{{ publication_video_left_preload }}"
+                playsinline
+                data-publications-video-player
+                {% if publication_video_left_poster_url != blank %}
+                  poster="{{ publication_video_left_poster_url }}"
+                {% endif %}
+              >
+                <source src="{{ publication_video_left_mp4_url }}" type="video/mp4">
+                {% if publication_video_left_webm_url != blank %}
+                  <source src="{{ publication_video_left_webm_url }}" type="video/webm">
+                {% endif %}
                 您的浏览器暂不支持视频播放，请升级浏览器后重试。
               </video>
             </div>
-            <p class="publications-video-card-description">该视频展示了团队在空海跨域具身智能方向的系统演示，体现了平台在复杂环境感知、跨域协同与自主作业方面的能力。</p>
+            <p class="publications-video-card-description">
+              该视频展示了团队在空海跨域具身智能方向的系统演示，体现了平台在复杂环境感知、跨域协同与自主作业方面的能力。
+            </p>
           </div>
 
           <div class="publications-video-card">
             <div class="publications-video-media">
-              <video class="publications-video-player" controls preload="metadata" playsinline poster="{{ publication_video_right_poster_url }}">
-                <source src="{{ publication_video_right_url }}" type="video/mp4">
+              <video
+                class="publications-video-player"
+                controls
+                preload="{{ publication_video_right_preload }}"
+                playsinline
+                data-publications-video-player
+                {% if publication_video_right_poster_url != blank %}
+                  poster="{{ publication_video_right_poster_url }}"
+                {% endif %}
+              >
+                <source src="{{ publication_video_right_mp4_url }}" type="video/mp4">
+                {% if publication_video_right_webm_url != blank %}
+                  <source src="{{ publication_video_right_webm_url }}" type="video/webm">
+                {% endif %}
                 您的浏览器暂不支持视频播放，请升级浏览器后重试。
               </video>
             </div>
-            <p class="publications-video-card-description">该视频展示了深海相机与机械臂协同作业的实验 demo，呈现了水下视觉感知、目标交互与精细操作的整体流程。</p>
+            <p class="publications-video-card-description">
+              该视频展示了深海相机与机械臂协同作业的实验 demo，呈现了水下视觉感知、目标交互与精细操作的整体流程。
+            </p>
           </div>
         </div>
       </div>
@@ -93,7 +151,7 @@ layout: default
       </div>
 
       <div class="publications-section-panel">
-        {% assign grouped_publications = page.manual_publications | group_by: "year" | sort: "name" | reverse %}
+        {% assign grouped_publications = page.manual_publications | group_by: 'year' | sort: 'name' | reverse %}
         {% if grouped_publications and grouped_publications.size > 0 %}
           <div class="publications publications--list publications--manual">
             <div class="manual-publications">
@@ -109,7 +167,7 @@ layout: default
 
                     <div class="publication-row">
                       {% assign image_value = pub.image | to_s | strip %}
-                      {% if image_value != "" %}
+                      {% if image_value != '' %}
                         <div class="publication-image">
                           <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
                         </div>
@@ -119,20 +177,22 @@ layout: default
                         <h3 class="title">{{ pub.title }}</h3>
 
                         {% assign authors_value = pub.authors | to_s | strip %}
-                        {% if authors_value != "" %}
+                        {% if authors_value != '' %}
                           <div class="author">{{ authors_value }}</div>
                         {% endif %}
 
                         {% assign venue_value = pub.venue | to_s | strip %}
-                        {% if venue_value != "" %}
-                          <div class="periodical"><em>{{ venue_value }}</em></div>
+                        {% if venue_value != '' %}
+                          <div class="periodical">
+                            <em>{{ venue_value }}</em>
+                          </div>
                         {% endif %}
 
                         {% assign doi_value = pub.doi | to_s | strip %}
-                        {% if doi_value != "" %}
+                        {% if doi_value != '' %}
                           {% assign doi_href = doi_value %}
-                          {% unless doi_href contains "://" %}
-                            {% assign doi_href = "https://doi.org/" | append: doi_href %}
+                          {% unless doi_href contains '://' %}
+                            {% assign doi_href = 'https://doi.org/' | append: doi_href %}
                           {% endunless %}
                           <div class="pub-doi">
                             <span class="pub-doi-icon">doi</span>

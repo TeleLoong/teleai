@@ -189,6 +189,9 @@
 {% if page.layout == 'reports' %}
   <script defer src="{{ '/assets/js/reports-video.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
+{% if page.layout == 'publications' %}
+  <script defer src="{{ '/assets/js/publications-video.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
 {% if page.layout == 'home' %}
   <script defer src="{{ '/assets/js/home-overview-video.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
