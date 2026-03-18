@@ -1,2 +1,25 @@
-# Force LF line endings, needed for Docker to work on Windows
+# Normalize text files to LF across the repository.
+* text=auto eol=lf
+
+# Keep scripts explicit for environments that rely on LF shebang parsing.
 *.sh text eol=lf
+
+# Common binary assets should never be line-normalized.
+*.avif binary
+*.eot binary
+*.gif binary
+*.ico binary
+*.jpeg binary
+*.jpg binary
+*.mov binary
+*.mp3 binary
+*.mp4 binary
+*.otf binary
+*.pdf binary
+*.png binary
+*.ttf binary
+*.wav binary
+*.webm binary
+*.webp binary
+*.woff binary
+*.woff2 binary

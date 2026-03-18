@@ -24,6 +24,7 @@
       "settings": {
         // use prettier code formatter as default formatter
         "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "files.eol": "\n",
         "prettier.configPath": ".prettierrc",
         "editor.formatOnSave": true
       }

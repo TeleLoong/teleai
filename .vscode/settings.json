@@ -21,6 +21,7 @@
   },
   "rubyLsp.erbSupport": false,
   "rubyLsp.formatter": "none",
+  "files.eol": "\n",
   "rubyLsp.pullDiagnosticsOn": "save",
   "rubyLsp.linters": []
 }
