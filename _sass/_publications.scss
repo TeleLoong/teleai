@@ -257,8 +257,50 @@
     padding-top: 0.8rem;
   }
 
-  .publications-section--papers .publications-section-panel {
+  .publications-section--records .publications-section-panel {
     padding-top: 0.53rem;
+  }
+
+  .publications-record-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin: 0.1rem 0 0.28rem 0;
+  }
+
+  .publications-record-toggle__button {
+    appearance: none;
+    border: 1px solid var(--global-theme-color);
+    border-radius: 0.35rem;
+    background: #fff;
+    color: var(--global-theme-color);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.1;
+    padding: 0.7rem 1.9rem;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .publications-record-toggle__button:hover,
+  .publications-record-toggle__button:focus-visible {
+    background: rgba(37, 99, 179, 0.08);
+    color: var(--global-theme-color);
+    outline: none;
+    box-shadow: 0 0 0 0.18rem rgba(37, 99, 179, 0.16);
+  }
+
+  .publications-record-toggle__button.is-active {
+    background: var(--global-theme-color);
+    color: #fff;
+  }
+
+  .publications-record-panel[hidden] {
+    display: none !important;
   }
 
   .publications-section-empty {
@@ -349,8 +391,20 @@
       padding-top: 0.65rem;
     }
 
-    .publications-section--papers .publications-section-panel {
+    .publications-section--records .publications-section-panel {
       padding-top: 0.38rem;
+    }
+
+    .publications-record-toggle {
+      gap: 0.65rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .publications-record-toggle__button {
+      width: auto;
+      min-width: 0;
+      padding: 0.62rem 1.3rem;
+      font-size: 0.95rem;
     }
 
     .publications-video-grid {
@@ -684,6 +738,43 @@
     padding-top: 0.1rem;
   }
 
+  .patent-entry {
+    margin-bottom: 0.35rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .manual-publications--patents {
+    margin-top: 0;
+  }
+
+  .manual-publications--patents .year-divider {
+    margin-top: 0.15rem;
+  }
+
+  .patent-line {
+    margin: 0;
+    color: var(--global-text-color);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .patent-inventors {
+    color: var(--global-theme-color);
+    font-weight: 500;
+  }
+
+  .patent-title,
+  .patent-kind,
+  .patent-number {
+    color: var(--global-text-color);
+  }
+
+  .patent-status {
+    color: var(--global-theme-color);
+    font-weight: 600;
+  }
+
   @media (max-width: 768px) {
     .manual-publications {
       border-top-width: 1px;
@@ -730,6 +821,11 @@
 
     .publication-empty-text {
       text-align: right;
+    }
+
+    .patent-line {
+      font-size: 0.96rem;
+      line-height: 1.8;
     }
   }
 }

@@ -33,11 +33,11 @@ groups:
         role: Faculty
         image: assets/img/9.jpg
   - id: phd
-    title: PhD Students
+    title: 博士研究生
     members:
       - id: member_a
         name: Alice Zhang
-        role: PhD Student
+        role: 博士研究生
         subtitle: "Perception / Field Robotics"
         image: assets/img/1.jpg
         email: alice@university.edu
@@ -48,15 +48,15 @@ groups:
             url: https://github.com/
       - id: member_b
         name: Bob Li
-        role: PhD Student
+        role: 博士研究生
         subtitle: "Planning / Autonomy"
         image: assets/img/10.jpg
   - id: ms
-    title: MS Students
+    title: 硕士研究生
     members:
       - id: member_c
         name: Carol Wang
-        role: MS Student
+        role: 硕士研究生
         subtitle: "Controls / Systems"
         image: assets/img/3.jpg
   - id: ug

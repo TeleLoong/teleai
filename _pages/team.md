@@ -106,11 +106,11 @@ team:
           bio: >
             北京航空航天大学硕士，曾任中国航空无线电电子研究所工程师。研究方向为水下机器人系统设计
     - id: phd
-      title: PhD Students
+      title: 博士研究生
       members:
         - id: member_a
           name: Alice Zhang
-          role: PhD Student
+          role: 博士研究生
           subtitle: "Perception / Field Robotics"
           image: assets/img/1.jpg
           links:
@@ -120,30 +120,30 @@ team:
               url: https://scholar.google.com/
         - id: member_b
           name: Bob Li
-          role: PhD Student
+          role: 博士研究生
           subtitle: "Planning / Autonomy"
           image: assets/img/10.jpg
         - id: member_d
           name: David Chen
-          role: PhD Student
+          role: 博士研究生
           subtitle: "Marine Perception / Vision"
           image: assets/img/7.jpg
     - id: ms
-      title: MS Students
+      title: 硕士研究生
       members:
         - id: member_c
           name: Carol Wang
-          role: MS Student
+          role: 硕士研究生
           subtitle: "Controls / Systems"
           image: assets/img/3.jpg
         - id: member_e
           name: Evan Liu
-          role: MS Student
+          role: 硕士研究生
           subtitle: "Embedded AI / Hardware"
           image: assets/img/6.jpg
         - id: member_f
           name: Fiona Sun
-          role: MS Student
+          role: 硕士研究生
           subtitle: "Field Deployment / Testing"
           image: assets/img/5.jpg
     - id: ug

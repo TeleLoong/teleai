@@ -12,7 +12,7 @@ main_container_class: "container-fluid px-0 mt-0"
 
 top_banner:
   enabled: true
-  image: /assets/img/主页横幅图.png
+  image: /assets/img/主页横幅图.jpg
   height: 312px
   size: 100% 100%
   position: center

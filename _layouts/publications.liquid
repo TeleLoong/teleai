@@ -7,9 +7,15 @@ layout: default
 {% assign projects_section = publications.projects | default: empty %}
 {% assign project_text_items = projects_section.items | default: empty %}
 {% assign records_section = publications.records | default: empty %}
-{% assign publication_items = records_section.items | default: empty %}
-{% assign grouped_publications = publication_items | group_by: 'year' | sort: 'name' | reverse %}
-{% assign display_years = records_section.display_years | default: empty %}
+{% assign toggle_labels = records_section.toggle_labels | default: empty %}
+{% assign papers_section = records_section.papers | default: empty %}
+{% assign paper_items = papers_section.items | default: empty %}
+{% assign grouped_papers = paper_items | group_by: 'year' | sort: 'name' | reverse %}
+{% assign paper_display_years = papers_section.display_years | default: empty %}
+{% assign patents_section = records_section.patents | default: empty %}
+{% assign patent_items = patents_section.items | default: empty %}
+{% assign grouped_patents = patent_items | group_by: 'year' | sort: 'name' | reverse %}
+{% assign patent_display_years = patents_section.display_years | default: empty %}
 
 <div class="post publications-page">
   {% unless page.hide_page_header %}
@@ -132,38 +138,114 @@ layout: default
       </div>
     </section>
 
-    {% if grouped_publications and grouped_publications.size > 0 %}
-      <section class="publications-section publications-section--papers" aria-labelledby="publications-papers-title">
-        <div class="publications-category-bar" id="publications-papers-title" aria-label="成果分类">
-          {% if records_section.category_labels and records_section.category_labels.size > 0 %}
-            {% for label in records_section.category_labels %}
-              {% unless forloop.first %}
-                <span class="publications-category-separator" aria-hidden="true">/</span>
-              {% endunless %}
-              <span class="publications-category-chip">{{ label }}</span>
-            {% endfor %}
-          {% else %}
-            <span class="publications-category-chip">论文</span>
-          {% endif %}
+    {% if paper_items.size > 0 or patent_items.size > 0 %}
+      <section class="publications-section publications-section--records" aria-labelledby="publications-records-title">
+        <h2 class="sr-only" id="publications-records-title">论文与专利成果</h2>
+        <div class="publications-record-toggle" role="group" aria-label="成果分类切换">
+          <button
+            type="button"
+            class="publications-record-toggle__button is-active"
+            data-publications-toggle-target="papers"
+            data-publications-toggle-button
+            aria-pressed="true"
+            aria-controls="publications-records-papers"
+          >
+            {{ toggle_labels.papers | default: '论文成果' }}
+          </button>
+          <button
+            type="button"
+            class="publications-record-toggle__button"
+            data-publications-toggle-target="patents"
+            data-publications-toggle-button
+            aria-pressed="false"
+            aria-controls="publications-records-patents"
+          >
+            {{ toggle_labels.patents | default: '专利成果' }}
+          </button>
         </div>
 
         <div class="publications-section-panel">
-          <div class="publications publications--list publications--manual">
-            <div class="manual-publications">
-              {% if display_years and display_years.size > 0 %}
-                {% for display_year_entry in display_years %}
-                  {% assign display_year = display_year_entry.year | default: display_year_entry %}
-                  {% assign empty_text = display_year_entry.empty_text | default: '待更新' %}
-                  {% unless forloop.first %}
-                    <div class="year-divider" aria-hidden="true"></div>
-                  {% endunless %}
+          <div
+            class="publications-record-panel is-active"
+            id="publications-records-papers"
+            data-publications-panel="papers"
+          >
+            <div class="publications publications--list publications--manual">
+              <div class="manual-publications">
+                {% if paper_display_years and paper_display_years.size > 0 %}
+                  {% for display_year_entry in paper_display_years %}
+                    {% assign display_year = display_year_entry.year | default: display_year_entry %}
+                    {% assign empty_text = display_year_entry.empty_text | default: '待更新' %}
+                    {% unless forloop.first %}
+                      <div class="year-divider" aria-hidden="true"></div>
+                    {% endunless %}
 
-                  {% assign year_group = grouped_publications | where: 'name', display_year | first %}
-                  {% if year_group %}
+                    {% assign year_group = grouped_papers | where: 'name', display_year | first %}
+                    {% if year_group %}
+                      {% for pub in year_group.items %}
+                        <article class="publication-entry{% if display_year == 2026 and forloop.first %} publication-entry--2026-first{% endif %}{% if display_year == 2024 %} publication-entry--2024{% endif %}{% if display_year == 2025 %} publication-entry--2025{% endif %}{% if display_year == 2026 %} publication-entry--2026{% endif %}">
+                          {% if forloop.first %}
+                            <div class="entry-year-badge">{{ display_year }}</div>
+                          {% endif %}
+
+                          <div class="publication-row">
+                            {% assign image_value = pub.image | to_s | strip %}
+                            {% if image_value != '' %}
+                              <div class="publication-image">
+                                <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
+                              </div>
+                            {% endif %}
+
+                            <div class="publication-body">
+                              <h3 class="title">{{ pub.title }}</h3>
+
+                              {% assign authors_value = pub.authors | to_s | strip %}
+                              {% if authors_value != '' %}
+                                <div class="author">{{ authors_value }}</div>
+                              {% endif %}
+
+                              {% assign venue_value = pub.venue | to_s | strip %}
+                              {% if venue_value != '' %}
+                                <div class="periodical">
+                                  <em>{{ venue_value }}</em>
+                                </div>
+                              {% endif %}
+
+                              {% assign doi_value = pub.doi | to_s | strip %}
+                              {% if doi_value != '' %}
+                                <div class="pub-doi">
+                                  <span class="pub-doi-icon">doi</span>
+                                  {% if pub.doi_link == false %}
+                                    <span>{{ doi_value }}</span>
+                                  {% else %}
+                                    {% assign doi_href = doi_value %}
+                                    {% unless doi_href contains '://' %}
+                                      {% assign doi_href = 'https://doi.org/' | append: doi_href %}
+                                    {% endunless %}
+                                    <a href="{{ doi_href }}" target="_blank" rel="noopener noreferrer">{{ doi_value }}</a>
+                                  {% endif %}
+                                </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </article>
+                      {% endfor %}
+                    {% else %}
+                      <article class="publication-entry publication-entry--empty">
+                        <div class="entry-year-badge">{{ display_year }}</div>
+                        <div class="publication-empty-text">{{ empty_text }}</div>
+                      </article>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {% for year_group in grouped_papers %}
+                    {% unless forloop.first %}
+                      <div class="year-divider" aria-hidden="true"></div>
+                    {% endunless %}
                     {% for pub in year_group.items %}
-                      <article class="publication-entry{% if display_year == 2026 and forloop.first %} publication-entry--2026-first{% endif %}{% if display_year == 2024 %} publication-entry--2024{% endif %}{% if display_year == 2025 %} publication-entry--2025{% endif %}{% if display_year == 2026 %} publication-entry--2026{% endif %}">
+                      <article class="publication-entry">
                         {% if forloop.first %}
-                          <div class="entry-year-badge">{{ display_year }}</div>
+                          <div class="entry-year-badge">{{ year_group.name }}</div>
                         {% endif %}
 
                         <div class="publication-row">
@@ -208,68 +290,105 @@ layout: default
                         </div>
                       </article>
                     {% endfor %}
-                  {% else %}
-                    <article class="publication-entry publication-entry--empty">
-                      <div class="entry-year-badge">{{ display_year }}</div>
-                      <div class="publication-empty-text">{{ empty_text }}</div>
-                    </article>
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                {% for year_group in grouped_publications %}
-                  {% unless forloop.first %}
-                    <div class="year-divider" aria-hidden="true"></div>
-                  {% endunless %}
-                  {% for pub in year_group.items %}
-                    <article class="publication-entry">
-                      {% if forloop.first %}
-                        <div class="entry-year-badge">{{ year_group.name }}</div>
-                      {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
 
-                      <div class="publication-row">
-                        {% assign image_value = pub.image | to_s | strip %}
-                        {% if image_value != '' %}
-                          <div class="publication-image">
-                            <img src="{{ image_value | relative_url }}" alt="{{ pub.title }}" loading="lazy">
-                          </div>
+          <div
+            class="publications-record-panel"
+            id="publications-records-patents"
+            data-publications-panel="patents"
+            hidden
+          >
+            <div class="publications publications--manual publications--patents">
+              <div class="manual-publications manual-publications--patents">
+                {% if patent_display_years and patent_display_years.size > 0 %}
+                  {% for display_year_entry in patent_display_years %}
+                    {% assign display_year = display_year_entry.year | default: display_year_entry %}
+                    {% assign empty_text = display_year_entry.empty_text | default: '待更新' %}
+                    {% unless forloop.first %}
+                      <div class="year-divider" aria-hidden="true"></div>
+                    {% endunless %}
+
+                    {% assign year_group = grouped_patents | where: 'name', display_year | first %}
+                    {% if year_group %}
+                      {% for patent in year_group.items %}
+                        <article class="publication-entry patent-entry">
+                          {% if forloop.first %}
+                            <div class="entry-year-badge">{{ display_year }}</div>
+                          {% endif %}
+
+                          <p class="patent-line">
+                            {% assign inventors_value = patent.inventors | default: patent.authors | to_s | strip %}
+                            {% if inventors_value != '' %}
+                              <span class="patent-inventors">{{ inventors_value }}</span>
+                            {% endif %}
+                            {% assign patent_title = patent.title | to_s | strip %}
+                            {% if patent_title != '' %}
+                              <span class="patent-title">，{{ patent_title }}</span>
+                            {% endif %}
+                            {% assign patent_kind = patent.kind | to_s | strip %}
+                            {% if patent_kind != '' %}
+                              <span class="patent-kind">，{{ patent_kind }}</span>
+                            {% endif %}
+                            {% assign patent_no = patent.patent_no | to_s | strip %}
+                            {% if patent_no != '' %}
+                              <span class="patent-number">，{{ patent_no }}</span>
+                            {% endif %}
+                            {% assign patent_status = patent.status | to_s | strip %}
+                            {% if patent_status != '' %}
+                              <span class="patent-status"> {{ patent_status }}</span>
+                            {% endif %}
+                          </p>
+                        </article>
+                      {% endfor %}
+                    {% else %}
+                      <article class="publication-entry publication-entry--empty">
+                        <div class="entry-year-badge">{{ display_year }}</div>
+                        <div class="publication-empty-text">{{ empty_text }}</div>
+                      </article>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                  {% for year_group in grouped_patents %}
+                    {% unless forloop.first %}
+                      <div class="year-divider" aria-hidden="true"></div>
+                    {% endunless %}
+                    {% for patent in year_group.items %}
+                      <article class="publication-entry patent-entry">
+                        {% if forloop.first %}
+                          <div class="entry-year-badge">{{ year_group.name }}</div>
                         {% endif %}
 
-                        <div class="publication-body">
-                          <h3 class="title">{{ pub.title }}</h3>
-
-                          {% assign authors_value = pub.authors | to_s | strip %}
-                          {% if authors_value != '' %}
-                            <div class="author">{{ authors_value }}</div>
+                        <p class="patent-line">
+                          {% assign inventors_value = patent.inventors | default: patent.authors | to_s | strip %}
+                          {% if inventors_value != '' %}
+                            <span class="patent-inventors">{{ inventors_value }}</span>
                           {% endif %}
-
-                          {% assign venue_value = pub.venue | to_s | strip %}
-                          {% if venue_value != '' %}
-                            <div class="periodical">
-                              <em>{{ venue_value }}</em>
-                            </div>
+                          {% assign patent_title = patent.title | to_s | strip %}
+                          {% if patent_title != '' %}
+                            <span class="patent-title">，{{ patent_title }}</span>
                           {% endif %}
-
-                          {% assign doi_value = pub.doi | to_s | strip %}
-                          {% if doi_value != '' %}
-                            <div class="pub-doi">
-                              <span class="pub-doi-icon">doi</span>
-                              {% if pub.doi_link == false %}
-                                <span>{{ doi_value }}</span>
-                              {% else %}
-                                {% assign doi_href = doi_value %}
-                                {% unless doi_href contains '://' %}
-                                  {% assign doi_href = 'https://doi.org/' | append: doi_href %}
-                                {% endunless %}
-                                <a href="{{ doi_href }}" target="_blank" rel="noopener noreferrer">{{ doi_value }}</a>
-                              {% endif %}
-                            </div>
+                          {% assign patent_kind = patent.kind | to_s | strip %}
+                          {% if patent_kind != '' %}
+                            <span class="patent-kind">，{{ patent_kind }}</span>
                           {% endif %}
-                        </div>
-                      </div>
-                    </article>
+                          {% assign patent_no = patent.patent_no | to_s | strip %}
+                          {% if patent_no != '' %}
+                            <span class="patent-number">，{{ patent_no }}</span>
+                          {% endif %}
+                          {% assign patent_status = patent.status | to_s | strip %}
+                          {% if patent_status != '' %}
+                            <span class="patent-status"> {{ patent_status }}</span>
+                          {% endif %}
+                        </p>
+                      </article>
+                    {% endfor %}
                   {% endfor %}
-                {% endfor %}
-              {% endif %}
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>

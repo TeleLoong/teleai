@@ -136,9 +136,45 @@
     });
   };
 
-  if (page.dataset.publicationsVideoInit !== "true") {
-    page.dataset.publicationsVideoInit = "true";
-  }
+  const bindRecordToggle = () => {
+    const buttons = Array.from(page.querySelectorAll("[data-publications-toggle-button]"));
+    const panels = Array.from(page.querySelectorAll("[data-publications-panel]"));
+
+    if (!buttons.length || !panels.length) return;
+
+    const setActivePanel = (target) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.publicationsToggleTarget === target;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.publicationsPanel === target;
+        panel.classList.toggle("is-active", isActive);
+        panel.hidden = !isActive;
+      });
+    };
+
+    buttons.forEach((button) => {
+      if (button.dataset.publicationsToggleBound === "true") return;
+
+      button.dataset.publicationsToggleBound = "true";
+      button.addEventListener("click", () => {
+        setActivePanel(button.dataset.publicationsToggleTarget);
+      });
+    });
+
+    const initialButton =
+      buttons.find((button) => button.classList.contains("is-active")) ||
+      buttons.find((button) => button.getAttribute("aria-pressed") === "true") ||
+      buttons[0];
+
+    if (initialButton) {
+      setActivePanel(initialButton.dataset.publicationsToggleTarget);
+    }
+  };
 
   bindVideos();
+  bindRecordToggle();
 })();
