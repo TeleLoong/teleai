@@ -1,6 +1,6 @@
 ---
 layout: equipment
-title: 设备
+title: 实验设备
 permalink: /equipment/
 nav: true
 nav_order: 6
@@ -12,7 +12,7 @@ nav_order: 6
 
 equipment:
   lab:
-    title: 实验室照片
+    title:
     items:
       - src: /assets/equipment/uv-lit-hydrodynamics-test-pool.jpg
         alt: 蓝光照明条件下的动捕水池

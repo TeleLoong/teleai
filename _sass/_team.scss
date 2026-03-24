@@ -25,6 +25,10 @@
     min-width: 0;
   }
 
+  .team-group--fixed-three .team-grid-fixed-three__item--placeholder {
+    display: none;
+  }
+
   .team-group--teachers .team-grid-fixed-three {
     justify-items: center;
   }
@@ -36,7 +40,7 @@
 
   .team-group--teachers .team-card {
     width: 100%;
-    max-width: 245px;
+    max-width: 210px;
   }
 
   .team-group--teachers .team-card-name {
@@ -57,7 +61,7 @@
   }
 
   .team-group--teachers .team-card-body {
-    width: 245px;
+    width: 210px;
     margin: 0 auto;
   }
 
@@ -66,8 +70,8 @@
   }
 
   .team-group--teachers .team-card-image {
-    width: 245px;
-    height: 346px;
+    width: 210px;
+    height: 297px;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -88,16 +92,18 @@
     object-fit: cover;
     object-position: center top;
   }
+}
 
-  .team-card--placeholder {
-    border: 1px dashed var(--global-divider-color);
-    border-radius: 0.2rem;
-    opacity: 0.92;
+@media (min-width: 992px) {
+  .team-page .team-group--fixed-three .team-grid-fixed-three {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .team-card-name--placeholder {
-    color: var(--global-text-color-light);
-    font-weight: 750;
+  .team-page .team-group--fixed-three .team-grid-fixed-three__item--placeholder {
+    display: block;
+    width: 100%;
+    min-height: 1px;
+    pointer-events: none;
   }
 }
 

@@ -2,7 +2,7 @@
 layout: page
 ---
 {% assign team = page.team | default: empty %}
-{% assign fixed_three_group_ids = 'teachers|phd|ms' | split: '|' %}
+{% assign fixed_grid_group_ids = 'teachers|phd|ms' | split: '|' %}
 {% assign has_current_members = false %}
 {% if team.groups %}
   {% for group in team.groups %}
@@ -51,13 +51,12 @@ layout: page
       <div class="team-content container">
         {% for group in team.groups %}
           {% assign group_members = group.members | default: empty %}
-          {% if fixed_three_group_ids contains group.id %}
-            {% assign last_member = group_members | last %}
-            {% assign placeholder_image = 'assets/img/TeleAi.jpg' %}
-            {% if last_member and last_member.image %}
-              {% assign placeholder_image = last_member.image %}
+          {% if fixed_grid_group_ids contains group.id %}
+            {% assign remainder = group_members.size | modulo: 4 %}
+            {% assign missing_slots = 0 %}
+            {% if remainder != 0 %}
+              {% assign missing_slots = 4 | minus: remainder %}
             {% endif %}
-            {% assign missing_slots = 3 | minus: group_members.size %}
             <div class="team-group team-group--fixed-three team-group--{{ group.id }}">
               <h3 class="team-group-title">{{ group.title }}</h3>
               <div class="team-grid-fixed-three">
@@ -69,25 +68,7 @@ layout: page
 
                 {% if missing_slots > 0 %}
                   {% for _slot in (1..missing_slots) %}
-                    <div class="team-grid-fixed-three__item">
-                      <div class="team-card team-card--default team-card--placeholder">
-                        <div class="team-card-image">
-                          {%
-                            include figure.liquid
-                            loading="lazy"
-                            path=placeholder_image
-                            sizes="260px"
-                            alt="待补充"
-                            class="team-card-img"
-                            cache_bust=true
-                          %}
-                        </div>
-                        <div class="team-card-body">
-                          <div class="team-card-name team-card-name--placeholder">待补充</div>
-                          <div class="team-card-role">Coming Soon</div>
-                        </div>
-                      </div>
-                    </div>
+                    <div class="team-grid-fixed-three__item team-grid-fixed-three__item--placeholder" aria-hidden="true"></div>
                   {% endfor %}
                 {% endif %}
               </div>

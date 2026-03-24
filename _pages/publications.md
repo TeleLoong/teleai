@@ -258,21 +258,21 @@ publications:
       items:
         - index: 1
           inventors: 孙哲，程光华，刘欢
-          title: 激光器及基于扩谱激光相互压缩脉宽及提高能量的方法
+          title: 激光器及基于增益光栅压缩脉宽及提高能量的方法
           kind: 发明专利
           patent_no: ZL201710301582.0
           status: 授权
           year: 2017
         - index: 2
           inventors: 孙哲，李学龙
-          title: 基于计算成像的无人航行器加强导引系统及方法
+          title: 基于计算成像的无人航行器加密导引系统及方法
           kind: 发明专利
           patent_no: ZL202310062861.1
           status: 授权
           year: 2023
         - index: 3
           inventors: 孙哲，李学龙
-          title: 一种远距离成像方法
+          title: 一种远距离鬼成像方法
           kind: 发明专利
           patent_no: ZL202310038351.0
           status: 授权
@@ -285,41 +285,41 @@ publications:
           status: 授权
           year: 2016
         - index: 5
-          inventors: 苏秀玲，孙哲，闫佩佩，曾毅，刘洋，王凯迪，唐红
-          title: 一种超短强激光照射器
+          inventors: 苏秀琴，孙哲，闫佩佩，曹焱，刘辉，王凯迪，唐钰
+          title: 一种超轻型激光照射器
           kind: 发明专利
           patent_no: ZL201710744327.3
           status: 授权
           year: 2017
         - index: 6
-          inventors: 李学龙，陈寒凯，孙哲
-          title: 智能优化裁控的关联成像重建恢复方法
+          inventors: 李学龙，陈翼钒，孙哲
+          title: 智能优化散斑的关联成像重建恢复方法
           kind: 发明专利
           patent_no: ZL202310211373.2
           status: 授权
           year: 2023
         - index: 7
-          inventors: 宫静，程光华，张国栋，王江，孙哲
+          inventors: 吕静，程光华，张国栋，王江，孙哲
           title: 利用超快激光制备相变材料超表面的方法及光路系统
           kind: 发明专利
           patent_no: ZL202310204957.7
           status: 授权
           year: 2023
         - index: 8
-          inventors: 孙哲，李学龙，丁学川
-          title: 处理多套变波调制激光雷达信号的方法
+          inventors: 孙哲，李学龙
+          title: 可学习处理多参量载波调制激光雷达信号的方法
           kind: 发明专利
           patent_no: CN202410404019.6
           year: 2024
         - index: 9
-          inventors: 孙哲，朱岩润，李雯，李学龙
-          title: 水下无人航行器姿态鲁棒的光学测向定位方法
+          inventors: 孙哲，朱若澜，李晨，李学龙
+          title: 水下无人航行器姿态鲁棒的光学测角定位方法
           kind: 发明专利
           patent_no: CN202410657515.2
           year: 2024
         - index: 10
           inventors: 孙哲，李学龙
-          title: 一种相位畸变补偿的水下远距离成像方法
+          title: 一种相位畸变补偿的水下远距离鬼成像方法
           kind: 发明专利
           patent_no: CN202310000120.0
           year: 2023
@@ -330,85 +330,85 @@ publications:
           patent_no: CN202311082027.5
           year: 2023
         - index: 12
-          inventors: 孙哲，欧志腾，宫静，王江，程光华
-          title: 基于多输入联合智能增强成像方法及其装置
+          inventors: 孙哲，耿志鹏，吕静，王江，张国栋，程光华
+          title: 基于多输入联合智能单像素成像方法及其装置
           kind: 发明专利
           patent_no: CN202311120640.1
           year: 2023
         - index: 13
           inventors: 孙哲，赵昊飞
-          title: 一种用于舰船尾流气泡高频高能毫米波探测设备与方法
+          title: 一种用于舰船尾流气泡高频高稳定激光探测设备与方法
           kind: 发明专利
           patent_no: CN202511742377.9
           year: 2025
         - index: 14
-          inventors: 李学龙，陈鑫，孙哲
+          inventors: 李学龙，陆鑫，孙哲
           title: 一种水下智能动态跟瞄的单像素成像方法、系统及设备
           kind: 发明专利
           patent_no: CN202310821814.0
           year: 2023
         - index: 15
           inventors: 李学龙，李晨，孙哲
-          title: 一种水下无人平台可重构智能定位方法
+          title: 一种水下无人平台高可靠性智能定位方法
           kind: 发明专利
           patent_no: CN202310154372.9
           year: 2023
         - index: 16
-          inventors: 李学龙，陈寒凯，孙哲
+          inventors: 李学龙，陈翼钒，孙哲
           title: 一种基于分块卷积的智能关联成像方法
           kind: 发明专利
           patent_no: CN202310436586.5
           year: 2023
         - index: 17
-          inventors: 张竹磊，程光华，王江，孙哲，张国栋
+          inventors: 张仲磷，程光华，王江，孙哲，张国栋
           title: 一种泵浦-振荡一体化窄线宽钛宝石激光器
           kind: 发明专利
           patent_no: CN202411192790.8
           year: 2024
         - index: 18
-          inventors: 王江，程光华，张国栋，李学龙，孙哲，宫静，解亮
+          inventors: 王江，程光华，张国栋，李学龙，孙哲，吕静，解亮
           title: 光调制器及其制备方法和激光器
           kind: 发明专利
           patent_no: CN202211398565.0
           year: 2022
         - index: 19
           inventors: 程光华，孙哲，吕静
-          title: 一种掺铥锁模波导激光器
+          title: 一种转弯锁模波导激光器
           kind: 发明专利
           patent_no: CN201611256588.2
           year: 2016
         - index: 20
-          inventors: 李琼，王金国，朱占达，孙哲，袁勇波，雷剑
-          title: 实现高斯光束多光子经随机振荡光阑平均半径的确定方法
+          inventors: 李强，王金国，朱占达，孙哲，惠勇凌，雷訇
+          title: 实现高斯光束整形半径随机锯齿光阑平均半径的确定方法
           kind: 发明专利
           patent_no: CN201210001351.5
           year: 2012
         - index: 21
-          inventors: 李琼，姜梦华，袁勇波，雷剑，冯驰，孙哲
-          title: 多棒串接固体激光器晶体棒离轴对准方法
+          inventors: 李强，姜梦华，惠勇凌，雷訇，冯驰，孙哲
+          title: 多棒串接固体激光器晶体棒精确对准方法
           kind: 发明专利
           patent_no: CN201110186529.3
           year: 2011
         - index: 22
-          inventors: 李琼，孙哲，袁勇波，雷剑，姜梦华
-          title: 提高Nd:YAG激光器终端输出功率的装置及方法
+          inventors: 李强，孙哲，惠勇凌，雷訇，姜梦华
+          title: 提高Nd:YAG激光器线偏振输出功率的装置及方法
           kind: 发明专利
           patent_no: CN201110147802.1
           year: 2011
         - index: 23
-          inventors: 李琼，孙哲，袁勇波，雷剑，姜梦华
-          title: 一种提高紫光Nd:YAG激光器多通放大输出功率的放大器及其方法
+          inventors: 李强，孙哲，惠勇凌，雷訇，姜梦华
+          title: 一种提高棒状Nd:YAG激光多通放大输出功率的放大器及其方法
           kind: 发明专利
           patent_no: CN201210006500.7
           year: 2012
         - index: 24
-          inventors: 李琼，孙哲，袁勇波，雷剑，姜梦华
+          inventors: 李强，孙哲，惠勇凌，雷訇，姜梦华
           title: 多通板条激光放大器
           kind: 发明专利
           patent_no: CN201320022993.3
           year: 2013
         - index: 25
-          inventors: 李琼，姜美玉，孙哲，雷剑，袁勇波
+          inventors: 李强，姜笑尘，孙哲，雷訇，惠勇凌
           title: 提高半导体侧面泵浦棒状固体激光器泵浦效率的泵浦结构
           kind: 发明专利
           patent_no: CN201110147755.0

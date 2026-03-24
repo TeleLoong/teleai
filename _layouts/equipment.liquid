@@ -10,7 +10,9 @@ layout: page
     <p>{{ equipment.intro }}</p>
   {% endif %}
 
-  <h2>{{ lab.title | default: '实验室照片' }}</h2>
+  {% if lab.title and lab.title != blank %}
+    <h2>{{ lab.title }}</h2>
+  {% endif %}
   {% if lab.description %}
     <p class="text-muted">{{ lab.description }}</p>
   {% endif %}

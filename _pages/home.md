@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 主页
+title: 团队主页
 permalink: /
 description: 涉水具身智能 WeAI 实验室主页。
 main_container_class: "container-fluid px-0 mt-0"

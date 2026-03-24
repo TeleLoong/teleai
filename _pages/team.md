@@ -1,6 +1,6 @@
 ---
 layout: team
-title: 团队
+title: 研究团队
 permalink: /team/
 nav: true
 nav_order: 1

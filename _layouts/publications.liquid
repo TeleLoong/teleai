@@ -327,7 +327,7 @@ layout: default
                             {% endif %}
                             {% assign patent_title = patent.title | to_s | strip %}
                             {% if patent_title != '' %}
-                              <span class="patent-title">，{{ patent_title }}</span>
+                              <span class="patent-title">{{ patent_title }}</span>
                             {% endif %}
                             {% assign patent_kind = patent.kind | to_s | strip %}
                             {% if patent_kind != '' %}
@@ -369,7 +369,7 @@ layout: default
                           {% endif %}
                           {% assign patent_title = patent.title | to_s | strip %}
                           {% if patent_title != '' %}
-                            <span class="patent-title">，{{ patent_title }}</span>
+                            <span class="patent-title">{{ patent_title }}</span>
                           {% endif %}
                           {% assign patent_kind = patent.kind | to_s | strip %}
                           {% if patent_kind != '' %}
