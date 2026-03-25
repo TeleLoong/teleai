@@ -8,11 +8,8 @@ description: 联系信息与加入方式。
 hide_page_header: true
 main_container_class: "container mt-3"
 baidu_map:
-  enabled: true
   address: 上海市徐汇区龙文路199号国际传媒港F1座30层
   open_query: 中国电信人工智能研究院
-  title: TeleAI 涉水具身智能团队
-  zoom: 18
   height: 420px
   fallback_image: /assets/img/公司地址.png
 _styles: |
@@ -35,40 +32,22 @@ _styles: |
     box-shadow: 0 0.125rem 0.5rem rgba(17, 24, 39, 0.08);
   }
 
-  .contact-map-embed,
-  .contact-map-fallback {
-    position: absolute;
-    inset: 0;
-  }
-
-  .contact-map-embed {
-    z-index: 0;
-  }
-
-  .contact-map-embed.is-hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .contact-map-fallback {
-    z-index: 1;
-    background: #fff;
-  }
-
-  .contact-map-fallback.is-hidden {
-    display: none;
-  }
-
-  .contact-map-fallback figure,
-  .contact-map-fallback picture,
-  .contact-map-fallback img {
+  .contact-map-image-link,
+  .contact-map-image-link figure,
+  .contact-map-image-link picture,
+  .contact-map-image-link img {
     display: block;
     width: 100%;
     height: 100%;
     margin: 0;
   }
 
-  .contact-map-fallback img {
+  .contact-map-image-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .contact-map-image-link img {
     object-fit: cover;
   }
 
@@ -88,6 +67,12 @@ _styles: |
     color: #0f4fa8;
     text-decoration: none;
     font-weight: 600;
+  }
+
+  .contact-map-image-link:focus-visible,
+  .contact-map-link:focus-visible {
+    outline: 2px solid #0f4fa8;
+    outline-offset: 2px;
   }
 
   .contact-map-link:hover,
@@ -111,33 +96,33 @@ _styles: |
 
 办公地址：`上海市徐汇区龙文路199号国际传媒港F1座30层（下图红点位置）`
 
+请点击下图或按钮在百度地图中查看
+
+{% capture baidu_map_href %}https://api.map.baidu.com/geocoder?address={{ page.baidu_map.open_query | default: page.baidu_map.address | uri_escape }}&output=html{% endcapture %}
+
 <div
   class="contact-map"
   style="--contact-map-height: {{ page.baidu_map.height }};"
 >
-  <div
-    class="contact-map-embed is-hidden"
-    id="contact-baidu-map"
-    aria-label="办公地址地图"
-    data-map-ak="{{ site.baidu_map.ak | escape_once }}"
-    data-map-address="{{ page.baidu_map.address | escape_once }}"
-    data-map-title="{{ page.baidu_map.title | escape_once }}"
-    data-map-zoom="{{ page.baidu_map.zoom }}"
-  ></div>
-
-  <div class="contact-map-fallback" id="contact-baidu-map-fallback">
+  <a
+    class="contact-map-image-link"
+    href="{{ baidu_map_href }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="点击静态地图，在百度地图查看办公地址"
+  >
     {% include figure.liquid
       loading="eager"
       path=page.baidu_map.fallback_image
       alt="办公地址地图"
       class="img-fluid z-depth-1"
     %}
-  </div>
+  </a>
 
   <p class="contact-map-actions">
     <a
       class="contact-map-link"
-      href="https://api.map.baidu.com/geocoder?address={{ page.baidu_map.open_query | default: page.baidu_map.address | uri_escape }}&output=html"
+      href="{{ baidu_map_href }}"
       target="_blank"
       rel="noopener noreferrer"
     >

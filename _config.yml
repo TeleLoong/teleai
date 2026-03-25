@@ -42,9 +42,6 @@ external_services:
   github_readme_stats_url: https://github-readme-stats.vercel.app
   github_profile_trophy_url: https://github-profile-trophy.vercel.app
 
-baidu_map:
-  ak: yQos8GpWotcoaatm7RWsC1gvdcBqQmfY # your Baidu Maps browser AK
-
 # -----------------------------------------------------------------------------
 # RSS Feed
 # -----------------------------------------------------------------------------
