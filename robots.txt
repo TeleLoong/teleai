@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://teleloong.github.io/teleai/sitemap.xml
+Sitemap: https://teleloong.github.io/teleai_weai/sitemap.xml

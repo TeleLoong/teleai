@@ -7,56 +7,56 @@ ninja.data = [{
     title: "团队主页",
     section: "Navigation",
     handler: () => {
-      window.location.href = "/teleai/";
+      window.location.href = "/teleai_weai/";
     },
   },{id: "nav-研究团队",
           title: "研究团队",
           description: "团队成员信息。",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/team/";
+            window.location.href = "/teleai_weai/team/";
           },
         },{id: "nav-研究方向",
           title: "研究方向",
           description: "涉水光学&amp;具身智能，让机器人看得清、学得会、动得稳",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/research/";
+            window.location.href = "/teleai_weai/research/";
           },
         },{id: "nav-研究成果",
           title: "研究成果",
           description: "",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/publications/";
+            window.location.href = "/teleai_weai/publications/";
           },
         },{id: "nav-相关报道",
           title: "相关报道",
           description: "",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/reports/";
+            window.location.href = "/teleai_weai/reports/";
           },
         },{id: "nav-实验设备",
           title: "实验设备",
           description: "",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/equipment/";
+            window.location.href = "/teleai_weai/equipment/";
           },
         },{id: "nav-加入我们",
           title: "加入我们",
           description: "招聘信息与申请方式。",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/jobs/";
+            window.location.href = "/teleai_weai/jobs/";
           },
         },{id: "nav-联系方式",
           title: "联系方式",
           description: "联系信息与加入方式。",
           section: "Navigation",
           handler: () => {
-            window.location.href = "/teleai/contact/";
+            window.location.href = "/teleai_weai/contact/";
           },
         },{id: "post-google-gemini-updates-flash-1-5-gemma-2-and-project-astra",
         
@@ -85,7 +85,7 @@ ninja.data = [{
         title: 'CV',
         section: 'Socials',
         handler: () => {
-          window.open("/teleai/assets/pdf/example_pdf.pdf", "_blank");
+          window.open("/teleai_weai/assets/pdf/example_pdf.pdf", "_blank");
         },
       },{
         id: 'social-email',
@@ -106,7 +106,7 @@ ninja.data = [{
         title: 'RSS Feed',
         section: 'Socials',
         handler: () => {
-          window.open("/teleai/feed.xml", "_blank");
+          window.open("/teleai_weai/feed.xml", "_blank");
         },
       },{
         id: 'social-scholar',
