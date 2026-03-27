@@ -234,6 +234,16 @@
   line-height: 1.35;
 }
 
+.team-card--student .team-card-subtitle {
+  margin-top: 0.05rem;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+  opacity: 1;
+}
+
 .team-card--student .team-card-role {
   margin-top: 0.35rem;
   font-size: 1.1em;
@@ -257,8 +267,30 @@
   }
 }
 
+.team-card--student .team-card-bio {
+  margin-top: 0.05rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: normal;
+  color: var(--global-text-color);
+  opacity: 0.75;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.team-card--student .team-card-bio p {
+  margin: 0;
+  white-space: inherit;
+}
+
 .team-card-links {
   margin-top: 0.85rem;
+}
+
+.team-card--student .team-card-links {
+  margin-top: 0.45rem;
 }
 
 .team-card-links-inline {

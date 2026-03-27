@@ -4,7 +4,6 @@
 {% assign show_links = true %}
 {% if variant == 'student' %}
   {% assign show_image = false %}
-  {% assign show_links = false %}
 {% endif %}
 {% assign image_path = member.image | default: 'assets/img/TeleAi.jpg' %}
 {% assign member_homepage_url = '' %}
@@ -18,6 +17,10 @@
       {% assign member_scholar_url = link.url %}
     {% endif %}
   {% endfor %}
+{% endif %}
+{% assign member_homepage_label = 'Homepage' %}
+{% if variant == 'student' %}
+  {% assign member_homepage_label = 'GitHub' %}
 {% endif %}
 
 {% assign image_sizes = '260px' %}
@@ -65,9 +68,11 @@
       <div class="team-card-links" aria-label="Member links">
         <div class="team-card-links-inline">
           {% if member_homepage_url != '' %}
-            <a class="team-card-link team-card-link--text" href="{{ member_homepage_url }}" target="_blank" rel="noopener noreferrer"> Homepage </a>
+            <a class="team-card-link team-card-link--text" href="{{ member_homepage_url }}" target="_blank" rel="noopener noreferrer">
+              {{ member_homepage_label }}
+            </a>
           {% else %}
-            <span class="team-card-link team-card-link--disabled">Homepage</span>
+            <span class="team-card-link team-card-link--disabled">{{ member_homepage_label }}</span>
           {% endif %}
 
           <span class="team-card-link-separator" aria-hidden="true">·</span>

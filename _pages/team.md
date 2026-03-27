@@ -120,34 +120,49 @@ team:
           role: 博士研究生
         - id: member_b
           name: 江雨秋
-          role: 博士研究生
+          subtitle: 复旦大学
+          bio: 事件相机、水下多模态感知
+          links:
+            - label: Homepage
+              url: https://github.com/jyqiu03
         - id: member_d
           name: 宋洪豪
-          role: 博士研究生
+          subtitle: 中国科学技术大学
+          bio: 具身操作、人机共享控制
+          links:
+            - label: Homepage
+              url: https://github.com/koujiang9527
         - id: member_g
           name: 李俊粤
-          role: 博士研究生
+          subtitle: 浙江大学
+          bio: 涉水视觉与机器人
         - id: member_h
           name: 陈力进
-          role: 博士研究生
+          subtitle: 中国科学技术大学
+          bio: 空海跨域
         - id: member_i
           name: 鲁基俊
-          role: 博士研究生
+          subtitle: 上海交通大学
+          bio: 散射成像
         - id: member_j
           name: 刘瑛琪
-          role: 博士研究生
+          subtitle: 中国科学技术大学
+          bio: 人机交互、水下视觉感知与控制
         - id: member_k
           name: 仇茂盛
-          role: 博士研究生
+          subtitle: 西北工业大学
+          bio: 水下视觉、水下机械臂
     - id: ms
       title: 硕士研究生
       members:
         - id: member_c
           name: 赵昊飞
-          role: 硕士研究生
+          subtitle: 西北工业大学
+          bio: 嵌入式开发、水下激光探测
         - id: member_e
           name: 肖建功
-          role: 硕士研究生
+          subtitle: 西北工业大学
+          bio: 跨介质目标跟踪
     - id: ug
       title: Undergraduate
       members: []
