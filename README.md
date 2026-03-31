@@ -652,3 +652,4 @@ npx prettier . --write
 3. 再去看对应的 [`_layouts/`](./_layouts/) 和 [`_sass/`](./_sass/)
 
 大多数日常维护工作，走完这三步就能找到正确位置。
+声明：本项目网页的模板是alshedivat/al-folio,项目所有权由alshedivat享有
