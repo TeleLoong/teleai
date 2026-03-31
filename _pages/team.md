@@ -117,7 +117,13 @@ team:
       members:
         - id: member_a
           name: 王亮
-          role: 博士研究生
+          subtitle: 浙江大学
+          bio: 机器人运控与导航
+          links:
+            - label: Homepage
+              url: https://github.com/myoooofall
+            - label: Google Scholar
+              url: https://scholar.google.com/citations?user=hH97Bj4AAAAJ&hl=zh-CN&oi=sra
         - id: member_b
           name: 江雨秋
           subtitle: 复旦大学
