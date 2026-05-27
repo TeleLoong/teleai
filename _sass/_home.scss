@@ -19,9 +19,9 @@
 
   .home-hero-grid {
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 2.25rem;
-    align-items: center;
+    align-items: start;
   }
 
   .home-hero-media {

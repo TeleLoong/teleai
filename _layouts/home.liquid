@@ -59,20 +59,12 @@ layout: default
   {% assign overview_uav_bottom_right = overview_uav.bottom_right | default: empty %}
   {% assign cta = home.cta %}
 
-  {% assign hero_title = hero.title | default: site.title | default: 'Your Lab Name' %}
-  {% assign hero_tagline = hero.tagline %}
-  {% assign hero_intro = hero.intro %}
-
   <section class="home-hero-simple">
     <div class="container">
       <div class="home-hero-grid">
         <div class="home-hero-copy">
-          <h1 class="home-hero-title">{{ hero_title | newline_to_br }}</h1>
-          {% if hero_tagline %}
-            <p class="home-hero-tagline">{{ hero_tagline }}</p>
-          {% endif %}
-          {% if hero_intro %}
-            <p class="home-hero-intro">{{ hero_intro }}</p>
+          {% if content != '' %}
+            {{ content }}
           {% endif %}
           {% if hero_actions and hero_actions.size > 0 %}
             <div class="home-hero-actions">

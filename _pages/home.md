@@ -20,11 +20,6 @@ top_banner:
 
 home:
   hero:
-    title: |-
-      Water-related Embodied
-      AI Group
-    tagline: "涉水光学&具身智能，让机器人看得清、学得会、动得稳"
-    intro: 我们聚焦空海跨域具身智能体与涉水光学/视觉，推动从仿真到真实的系统级闭环验证与部署
     image: assets/img/Teampicture.jpg
     image_alt: Team photo
   hero_actions: []
@@ -159,5 +154,13 @@ home:
         url: /contact/
         style: btn-primary
 ---
+
+# Water-related Embodied AI Group
+
+## 涉水光学&具身智能
+
+### 让机器人"看得清、学得会、动得稳"  
+
+#### 我们是TeleAI涉水具身智能实验室，团队聚焦空海跨域具身智能体与涉水光学/视觉，推动从仿真到真实的系统级闭环验证与部署
 
 <!-- 主页内容由 `_layouts/home.liquid` 渲染；需要改文案/按钮/图片请编辑本文件的 `home` 配置。 -->
